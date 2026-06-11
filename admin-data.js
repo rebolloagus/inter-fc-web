@@ -1,15 +1,8 @@
 // ADMIN-DATA — gestionado desde el panel /admin.html
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
-  "lastUpdated": "2026-06-11T23:51:36.758Z",
-  "matchResults": {
-    "amistoso": {
-      "gf": 6,
-      "gc": 2,
-      "type": "W",
-      "rival": "Cristal F.C."
-    }
-  },
+  "lastUpdated": "2026-06-11T23:59:03.081Z",
+  "matchResults": {},
   "scorersByMatch": {
     "amistoso": [
       "Elias x4",
@@ -21,39 +14,40 @@ const ADMIN_DATA = {
     ],
     "f2": [
       "Elias x1",
-      "Seba T x1",
-      "Sena x1"
+      "Nando x1",
+      "Facu M x1"
     ],
     "f3": [
-      "Mandinga x1"
+      "Seba T x1"
     ],
     "f4": [
-      "Elias x1"
+      "Seba T x1"
     ],
     "f5": [
-      "Elias x1",
-      "Facu Munchs x1"
+      "Andres G x2"
     ],
     "f6": [
-      "Pato x1",
-      "Sena x1",
-      "Elias x1",
-      "Facu Munchs x2",
-      "Andres Guerra x2"
+      "Elias x3",
+      "Mandinga x1",
+      "Andres G x1",
+      "Facu M x1",
+      "Pato x1"
     ],
     "f7": [
+      "Elias x1",
+      "Mandinga x1",
+      "Pata x1",
       "Sena x1",
-      "Andres G x1",
-      "Diego x1",
-      "Elias x3"
+      "Franco F x1",
+      "Andres G x1"
     ],
     "f8": [
-      "Mandinga x1",
-      "Franco F x1"
+      "Elias x1",
+      "Mandinga x1"
     ],
     "f9": [
       "Sena x1",
-      "Mandinga x1"
+      "Diego x1"
     ]
   },
   "playerMinutes": {
