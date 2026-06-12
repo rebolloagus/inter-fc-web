@@ -305,6 +305,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:64px;
 .lineup-mins{font-size:.73rem;color:var(--gray);font-family:'Roboto Condensed',sans-serif;white-space:nowrap;flex-shrink:0}
 .no-enter-tag{font-size:.62rem;color:var(--gray);background:rgba(255,255,255,.06);padding:.12rem .4rem;border-radius:4px;letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
 .match-card-hint{font-size:.62rem;color:var(--gray);margin-top:.65rem;opacity:.65}
+.lineup-pitch-section{padding:.75rem 1.5rem 0}
+.pitch-legend{display:flex;gap:.75rem;flex-wrap:wrap;padding:.5rem 1.5rem .25rem;justify-content:center}
+.pitch-legend-item{display:flex;align-items:center;gap:.3rem;font-size:.6rem;color:var(--gray-light)}
+.pitch-legend-dot{width:9px;height:9px;border-radius:50%}
 
 /* GALERIA */
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
@@ -736,6 +740,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
         <span class="lineup-score" id="lineup-score"></span>
         <span class="lineup-result-badge" id="lineup-result-badge"></span>
       </div>
+    </div>
+    <div class="lineup-pitch-section"><div id="pitch-container"></div></div>
+    <div class="pitch-legend">
+      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#b8860b"></div>Portero</div>
+      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#0057B7"></div>Defensa</div>
+      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#1a7a3c"></div>Mediocampo</div>
+      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#c0392b"></div>Delantero</div>
+      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#f1c40f;border-radius:0;width:10px;height:10px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>Gol</div>
     </div>
     <div class="lineup-section">
       <div class="lineup-section-title">Titulares</div>
@@ -1266,6 +1278,91 @@ function closeModal() {
 // =====================
 // LINEUP MODAL
 // =====================
+function buildFormationLayout(titulares) {
+  const gk  = titulares.filter(p => p.pos === 'POR');
+  const dfi = titulares.filter(p => p.pos === 'DFI');
+  const dfc = titulares.filter(p => p.pos === 'DFC');
+  const dfd = titulares.filter(p => p.pos === 'DFD');
+  const defRow = [...dfi, ...dfc, ...dfd];
+  const dMid = titulares.filter(p => p.pos === 'MCD');
+  const mi   = titulares.filter(p => p.pos === 'MI');
+  const mc   = titulares.filter(p => p.pos === 'MC');
+  const md   = titulares.filter(p => p.pos === 'MD');
+  const midRow = [...mi, ...mc, ...md];
+  const aMid = titulares.filter(p => p.pos === 'MCO');
+  const fwd  = titulares.filter(p => p.pos === 'DC');
+
+  function dist(n) { return Array.from({length:n},(_,i)=>(100/(n+1))*(i+1)); }
+
+  const hasDM = dMid.length > 0, hasM = midRow.length > 0, hasAM = aMid.length > 0;
+  let yDM, yM, yAM;
+  if (hasDM && hasM && hasAM) { yDM=62; yM=47; yAM=32; }
+  else if (hasDM && hasM)     { yDM=58; yM=41; }
+  else if (hasM  && hasAM)    { yM=54;  yAM=36; }
+  else if (hasDM && hasAM)    { yDM=58; yAM=38; }
+  else if (hasDM)             { yDM=50; }
+  else if (hasM)              { yM=50; }
+  else if (hasAM)             { yAM=50; }
+
+  const out = [];
+  const push = (arr, xs, y) => arr.forEach((p,i) => out.push({...p, x: xs[i], y}));
+  push(gk,     [50],              88);
+  if (defRow.length) push(defRow, dist(defRow.length), 70);
+  if (hasDM) push(dMid,  dist(dMid.length),  yDM);
+  if (hasM)  push(midRow,dist(midRow.length), yM);
+  if (hasAM) push(aMid,  dist(aMid.length),  yAM);
+  if (fwd.length) push(fwd, dist(fwd.length), 13);
+  return out;
+}
+
+function renderPitchSVG(layout, scorerMap) {
+  const W = 250, H = 360;
+  function chipColor(pos) {
+    if (pos === 'POR') return '#b8860b';
+    if (pos && pos.startsWith('DF')) return '#0057B7';
+    if (pos === 'DC') return '#c0392b';
+    return '#1a7a3c';
+  }
+  const stripes = [0,1,2,3,4].map(i=>`<rect x="0" y="${i*72}" width="${W}" height="36" fill="rgba(0,0,0,.07)"/>`).join('');
+  const lines = `
+    <rect x="10" y="10" width="${W-20}" height="${H-20}" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="1.5"/>
+    <line x1="10" y1="${H/2}" x2="${W-10}" y2="${H/2}" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>
+    <circle cx="${W/2}" cy="${H/2}" r="30" fill="none" stroke="rgba(255,255,255,.65)" stroke-width="1.2"/>
+    <circle cx="${W/2}" cy="${H/2}" r="2.5" fill="rgba(255,255,255,.7)"/>
+    <rect x="58" y="10" width="${W-116}" height="52" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1"/>
+    <rect x="90" y="10" width="${W-180}" height="24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+    <rect x="99" y="4"  width="${W-198}" height="7"  fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.5"/>
+    <circle cx="${W/2}" cy="36" r="2" fill="rgba(255,255,255,.45)"/>
+    <rect x="58" y="${H-62}" width="${W-116}" height="52" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1"/>
+    <rect x="90" y="${H-34}" width="${W-180}" height="24" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+    <rect x="99" y="${H-11}" width="${W-198}" height="7"  fill="rgba(0,0,0,.18)" stroke="rgba(255,255,255,.65)" stroke-width="1.5"/>
+    <circle cx="${W/2}" cy="${H-38}" r="2" fill="rgba(255,255,255,.45)"/>`;
+  const corners = [[10,10,1,1],[W-10,10,-1,1],[10,H-10,1,-1],[W-10,H-10,-1,-1]];
+  const cPaths = corners.map(([cx,cy,dx,dy])=>
+    `<path d="M${cx},${cy} Q${cx+dx*9},${cy} ${cx+dx*9},${cy+dy*9}" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1"/>`).join('');
+
+  const chips = layout.map(p => {
+    const px = (p.x/100)*W;
+    const py = (p.y/100)*H;
+    const col = chipColor(p.pos);
+    const adminName = LINEUP_NAME_MAP[p.name] || p.name;
+    const goals = scorerMap[adminName] || 0;
+    const lbl = p.name.split(' ')[0].substring(0,8);
+    const ring = goals > 0 ? '#f1c40f' : 'rgba(255,255,255,.75)';
+    const rw   = goals > 0 ? 2.5 : 1.8;
+    let g = `<circle cx="${px}" cy="${py}" r="16" fill="${col}" stroke="${ring}" stroke-width="${rw}"/>
+      <text x="${px}" y="${py}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="7.5" font-weight="700" fill="white">${lbl}</text>
+      <text x="${px}" y="${py+23}" text-anchor="middle" font-family="Roboto,Arial,sans-serif" font-size="5.5" fill="rgba(255,255,255,.85)">${p.pos}</text>`;
+    if (goals > 0) {
+      g += `<circle cx="${px+13}" cy="${py-11}" r="7" fill="#f1c40f" stroke="white" stroke-width="1"/>
+        <text x="${px+13}" y="${py-11}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="7" font-weight="900" fill="#333">${goals}</text>`;
+    }
+    return `<g>${g}</g>`;
+  }).join('');
+
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:8px"><rect width="${W}" height="${H}" fill="#2e7d32"/>${stripes}${lines}${cPaths}${chips}</svg>`;
+}
+
 function openLineup(matchId) {
   const m = MATCHES.find(x => x.id === matchId);
   const lu = LINEUPS[matchId];
@@ -1307,6 +1404,7 @@ function openLineup(matchId) {
   scoreEl.textContent = m.result;
   scoreEl.className = 'lineup-score ' + resultClass;
   document.getElementById('lineup-result-badge').textContent = resultLabel;
+  document.getElementById('pitch-container').innerHTML = renderPitchSVG(buildFormationLayout(lu.titulares), scorerMap);
   document.getElementById('lineup-titulares').innerHTML = lu.titulares.map(renderP).join('');
   document.getElementById('lineup-suplentes').innerHTML = lu.suplentes.map(renderP).join('');
   document.getElementById('lineupModal').classList.add('open');
