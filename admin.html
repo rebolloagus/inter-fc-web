@@ -269,6 +269,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
           </div>
           <div style="margin-top:1rem;display:flex;gap:.8rem;flex-wrap:wrap">
             <button class="btn btn-primary" onclick="saveToken()">Guardar token</button>
+            <button class="btn btn-success btn-sm" onclick="testConnection()">✓ Probar conexión</button>
             <button class="btn btn-danger btn-sm" onclick="clearToken()">Borrar token</button>
           </div>
         </div>
@@ -314,6 +315,16 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
+
+<!-- ERROR OVERLAY -->
+<div id="error-overlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;align-items:center;justify-content:center">
+  <div style="background:#1a0a0a;border:1px solid var(--loss);border-radius:16px;padding:2rem;max-width:420px;text-align:center">
+    <div style="font-size:2rem;margin-bottom:.8rem">❌</div>
+    <div style="font-weight:600;color:var(--loss);margin-bottom:.8rem">Error al guardar</div>
+    <div id="error-text" style="font-size:.88rem;color:var(--gray-light);line-height:1.6;margin-bottom:1.5rem"></div>
+    <button class="btn btn-danger" onclick="document.getElementById('error-overlay').style.display='none'">Entendido</button>
+  </div>
+</div>
 
 <script src="admin-data.js"></script>
 <script>
@@ -685,7 +696,7 @@ async function saveToGitHub() {
   const token = getToken();
   const repo = getRepo();
   if (!token) {
-    toast('Configurá el token de GitHub en ⚙️ Configuración', 'err');
+    showError('No hay token configurado. Andá a ⚙️ Configuración y pegá tu GitHub token.');
     showTab('config', document.querySelectorAll('.nav-item')[3]);
     return;
   }
@@ -696,41 +707,60 @@ async function saveToGitHub() {
   btn.textContent = '⏳ Guardando...';
 
   try {
-    // 1. Generate file content
     DATA.lastUpdated = new Date().toISOString();
     const content = generateAdminDataJs();
 
-    // 2. Get current file SHA (needed for update)
     const api = `https://api.github.com/repos/${repo}/contents/admin-data.js`;
     const headers = { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' };
 
-    let sha = null;
-    try {
-      const res = await fetch(api, { headers });
-      if (res.ok) { const d = await res.json(); sha = d.sha; }
-    } catch(e) {}
+    // Get current file SHA
+    const getRes = await fetch(api, { headers });
+    if (getRes.status === 401) throw new Error('Token inválido o expirado. Generá uno nuevo en github.com/settings/tokens');
+    if (getRes.status === 404) throw new Error(`Repositorio "${repo}" no encontrado. Verificá el repo en Configuración.`);
+    if (!getRes.ok) throw new Error(`Error obteniendo SHA: HTTP ${getRes.status}`);
+    const fileData = await getRes.json();
+    const sha = fileData.sha;
 
-    // 3. Commit the file
+    // Commit
     const body = {
       message: `🤖 Admin update ${new Date().toLocaleDateString('es-UY')} — goleadores y minutos`,
       content: btoa(unescape(encodeURIComponent(content))),
-      ...(sha ? { sha } : {}),
+      sha,
     };
     const putRes = await fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) });
+    if (putRes.status === 401) throw new Error('Token inválido o expirado. Generá uno nuevo en github.com/settings/tokens');
     if (!putRes.ok) {
       const err = await putRes.json();
       throw new Error(err.message || `HTTP ${putRes.status}`);
     }
 
-    setStatus('✓ Guardado en GitHub. La web se actualiza en ~2 min.', 'ok');
-    toast('✓ Publicado en GitHub!\nLa web se actualiza en ~2 minutos.', 'ok');
+    setStatus('✓ Guardado. La web se actualiza en ~1 min.', 'ok');
+    toast('✓ Publicado en GitHub! La web se actualiza en ~1 minuto.', 'ok');
   } catch(e) {
-    setStatus('Error: ' + e.message, 'err');
-    toast('Error al guardar: ' + e.message, 'err');
+    showError(e.message);
     console.error(e);
   } finally {
     btn.disabled = false;
     btn.textContent = '💾 Guardar en GitHub y publicar';
+  }
+}
+
+async function testConnection() {
+  const token = getToken();
+  const repo = getRepo();
+  if (!token) return showError('No hay token. Pegalo en el campo de arriba y hacé click en "Guardar token" primero.');
+  setStatus('Probando conexión...', 'saving');
+  try {
+    const res = await fetch(`https://api.github.com/repos/${repo}/contents/admin-data.js`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (res.status === 401) throw new Error('Token inválido o expirado');
+    if (res.status === 404) throw new Error(`Repo "${repo}" no encontrado`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    setStatus('✓ Conexión OK — token válido', 'ok');
+    toast('✓ Token válido y repositorio encontrado', 'ok');
+  } catch(e) {
+    showError('Error de conexión: ' + e.message);
   }
 }
 
@@ -750,11 +780,21 @@ function setStatus(msg, type) {
   el.className = `status-msg ${type}`;
 }
 
+function showError(msg) {
+  setStatus('❌ ' + msg, 'err');
+  // Error modal that requires dismissal
+  const overlay = document.getElementById('error-overlay');
+  document.getElementById('error-text').textContent = msg;
+  overlay.style.display = 'flex';
+}
+
 function toast(msg, type = 'info') {
   const el = document.getElementById('toast');
   el.textContent = msg;
   el.className = `toast ${type} show`;
-  setTimeout(() => el.classList.remove('show'), 3000);
+  // Success toasts auto-hide; errors require click
+  if (type !== 'err') setTimeout(() => el.classList.remove('show'), 4000);
+  else el.onclick = () => el.classList.remove('show');
 }
 </script>
 </body>
