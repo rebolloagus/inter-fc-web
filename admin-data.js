@@ -2,6 +2,7 @@
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
   "lastUpdated": "2026-06-12T04:32:28.639Z",
+  "igStats": { "posts": 84, "seguidores": 234, "siguiendo": 36 },
   "matchResults": {},
   "scorersByMatch": {
     "amistoso": [

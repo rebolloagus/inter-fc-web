@@ -275,6 +275,28 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
         </div>
 
         <div class="admin-card">
+          <div class="admin-card-title"><span>📸</span> Estadísticas de Instagram</div>
+          <p style="font-size:.83rem;color:var(--gray-light);margin-bottom:1rem;line-height:1.6">
+            Actualizá los números que aparecen en la tarjeta de Instagram de la web.
+          </p>
+          <div class="form-row cols-3">
+            <div class="form-group">
+              <label>Posts</label>
+              <input type="number" id="ig-posts" min="0" placeholder="84">
+            </div>
+            <div class="form-group">
+              <label>Seguidores</label>
+              <input type="number" id="ig-seguidores" min="0" placeholder="234">
+            </div>
+            <div class="form-group">
+              <label>Siguiendo</label>
+              <input type="number" id="ig-siguiendo" min="0" placeholder="36">
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="saveIgStats()">Guardar stats de Instagram</button>
+        </div>
+
+        <div class="admin-card">
           <div class="admin-card-title"><span>🔒</span> Cambiar contraseña del panel</div>
           <div class="form-row cols-2">
             <div class="form-group">
@@ -442,6 +464,7 @@ function initPanel() {
   renderAllResults();
   loadTokenDisplay();
   loadRepoInput();
+  loadIgStats();
 }
 
 function buildMatchSelectors() {
@@ -658,6 +681,22 @@ function saveMinute(matchId, playerName, val) {
 // =====================
 function getToken() { return localStorage.getItem(TOKEN_KEY) || ''; }
 function getRepo() { return document.getElementById('gh-repo')?.value || localStorage.getItem(REPO_KEY) || 'rebolloagus/inter-fc-web'; }
+
+function loadIgStats() {
+  const ig = DATA.igStats || { posts: 84, seguidores: 234, siguiendo: 36 };
+  document.getElementById('ig-posts').value = ig.posts;
+  document.getElementById('ig-seguidores').value = ig.seguidores;
+  document.getElementById('ig-siguiendo').value = ig.siguiendo;
+}
+
+function saveIgStats() {
+  const posts = parseInt(document.getElementById('ig-posts').value) || 0;
+  const seguidores = parseInt(document.getElementById('ig-seguidores').value) || 0;
+  const siguiendo = parseInt(document.getElementById('ig-siguiendo').value) || 0;
+  DATA.igStats = { posts, seguidores, siguiendo };
+  setStatus('Stats de Instagram listos — hacé click en "Guardar en GitHub y publicar"', 'ok');
+  toast('✓ Stats guardados. Ahora publicá en GitHub.', 'ok');
+}
 
 function saveToken() {
   const t = document.getElementById('gh-token-input').value.trim();
