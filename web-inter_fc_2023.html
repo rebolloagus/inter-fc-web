@@ -276,9 +276,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:64px;
 /* LINEUP MODAL */
 .lineup-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:3000;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(6px)}
 .lineup-overlay.open{display:flex}
-.lineup-modal{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
-.lineup-header{padding:1.4rem 1.5rem 1.1rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--card);z-index:1;border-radius:20px 20px 0 0}
-.lineup-match-label{font-size:.65rem;color:var(--blue-light);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.5rem}
+.lineup-modal{background:var(--card);border:1px solid var(--border);border-radius:20px;max-width:900px;width:100%;max-height:92vh;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.lineup-header{padding:1.1rem 1.5rem;border-bottom:1px solid var(--border);flex-shrink:0}
+.lineup-match-label{font-size:.65rem;color:var(--blue-light);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.35rem}
 .lineup-score-row{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap}
 .lineup-rival{font-family:'Bebas Neue',sans-serif;font-size:1.35rem;letter-spacing:.04em;flex:1}
 .lineup-score{font-family:'Anton',sans-serif;font-size:1.15rem;padding:.15rem .55rem;border-radius:7px;line-height:1.2}
@@ -287,28 +287,39 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:64px;
 .lineup-score.l{color:var(--loss);background:rgba(231,76,60,.12)}
 .lineup-score.f{color:var(--gray-light);background:rgba(255,255,255,.08)}
 .lineup-result-badge{font-size:.65rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
-.lineup-close{position:absolute;top:1rem;right:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;color:var(--gray);transition:all .2s}
+.lineup-close{position:absolute;top:.9rem;right:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:.95rem;color:var(--gray);transition:all .2s}
 .lineup-close:hover{background:var(--border);color:var(--white)}
-.lineup-section{padding:1.1rem 1.5rem}
-.lineup-section-title{font-size:.63rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:.65rem;display:flex;align-items:center;gap:.5rem}
+.lineup-modal-body{display:flex;flex:1;min-height:0;overflow:hidden}
+.lineup-left{flex:0 0 42%;display:flex;flex-direction:column;padding:.75rem 1rem .75rem 1.25rem;gap:.4rem;min-height:0;overflow:hidden}
+#pitch-container{flex:1;min-height:0;position:relative;border-radius:8px;background:#2e7d32;overflow:hidden}
+.pitch-legend{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;flex-shrink:0}
+.pitch-legend-item{display:flex;align-items:center;gap:.3rem;font-size:.58rem;color:var(--gray-light)}
+.pitch-legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.lineup-right{flex:1;overflow-y:auto;border-left:1px solid var(--border);padding:.5rem 1.25rem 1.25rem}
+.lineup-section{padding:.4rem 0}
+.lineup-section-title{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gray);margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
 .lineup-section-title::after{content:'';flex:1;height:1px;background:var(--border)}
-.lineup-player{display:flex;align-items:center;gap:.65rem;padding:.45rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.lineup-player{display:flex;align-items:center;gap:.6rem;padding:.38rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
 .lineup-player:last-child{border-bottom:none}
 .lineup-player.no-enter{opacity:.42}
-.pos-badge{font-size:.58rem;font-weight:700;letter-spacing:.04em;padding:.18rem .38rem;border-radius:4px;min-width:34px;text-align:center;flex-shrink:0}
+.pos-badge{font-size:.56rem;font-weight:700;letter-spacing:.04em;padding:.15rem .35rem;border-radius:4px;min-width:32px;text-align:center;flex-shrink:0}
 .pos-por{background:rgba(245,166,35,.18);color:#f5a623;border:1px solid rgba(245,166,35,.28)}
 .pos-def{background:rgba(0,87,183,.22);color:#5ba3ff;border:1px solid rgba(0,87,183,.32)}
 .pos-mid{background:rgba(39,174,96,.18);color:#2ecc71;border:1px solid rgba(39,174,96,.28)}
 .pos-fwd{background:rgba(231,76,60,.18);color:#e74c3c;border:1px solid rgba(231,76,60,.28)}
-.lineup-player-name{flex:1;font-size:.87rem;font-weight:500}
-.goal-chip{font-size:.63rem;background:rgba(39,174,96,.2);color:#2ecc71;padding:.08rem .32rem;border-radius:999px;margin-left:.3rem;font-weight:700;vertical-align:middle}
-.lineup-mins{font-size:.73rem;color:var(--gray);font-family:'Roboto Condensed',sans-serif;white-space:nowrap;flex-shrink:0}
-.no-enter-tag{font-size:.62rem;color:var(--gray);background:rgba(255,255,255,.06);padding:.12rem .4rem;border-radius:4px;letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
+.lineup-player-name{flex:1;font-size:.84rem;font-weight:500}
+.goal-chip{font-size:.62rem;background:rgba(39,174,96,.2);color:#2ecc71;padding:.06rem .3rem;border-radius:999px;margin-left:.3rem;font-weight:700;vertical-align:middle}
+.lineup-mins{font-size:.72rem;color:var(--gray);font-family:'Roboto Condensed',sans-serif;white-space:nowrap;flex-shrink:0}
+.no-enter-tag{font-size:.6rem;color:var(--gray);background:rgba(255,255,255,.06);padding:.1rem .38rem;border-radius:4px;letter-spacing:.04em;white-space:nowrap;flex-shrink:0}
 .match-card-hint{font-size:.62rem;color:var(--gray);margin-top:.65rem;opacity:.65}
-.lineup-pitch-section{padding:.75rem 1.5rem 0}
-.pitch-legend{display:flex;gap:.75rem;flex-wrap:wrap;padding:.5rem 1.5rem .25rem;justify-content:center}
-.pitch-legend-item{display:flex;align-items:center;gap:.3rem;font-size:.6rem;color:var(--gray-light)}
-.pitch-legend-dot{width:9px;height:9px;border-radius:50%}
+@media(max-width:640px){
+  .lineup-overlay{padding:.5rem 0 0;align-items:flex-end}
+  .lineup-modal{max-width:100%;max-height:96dvh;border-radius:16px 16px 0 0}
+  .lineup-modal-body{flex-direction:column;overflow-y:auto}
+  .lineup-left{flex:none;padding:.75rem 1rem;min-height:0}
+  #pitch-container{aspect-ratio:250/360;flex:none;height:auto}
+  .lineup-right{border-left:none;border-top:1px solid var(--border);padding:.5rem 1rem 1.25rem}
+}
 
 /* GALERIA */
 .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
@@ -741,21 +752,27 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
         <span class="lineup-result-badge" id="lineup-result-badge"></span>
       </div>
     </div>
-    <div class="lineup-pitch-section"><div id="pitch-container"></div></div>
-    <div class="pitch-legend">
-      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#b8860b"></div>Portero</div>
-      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#0057B7"></div>Defensa</div>
-      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#1a7a3c"></div>Mediocampo</div>
-      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#c0392b"></div>Delantero</div>
-      <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#f1c40f;border-radius:0;width:10px;height:10px;clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)"></div>Gol</div>
-    </div>
-    <div class="lineup-section">
-      <div class="lineup-section-title">Titulares</div>
-      <div id="lineup-titulares"></div>
-    </div>
-    <div class="lineup-section" style="padding-top:0">
-      <div class="lineup-section-title">Suplentes</div>
-      <div id="lineup-suplentes"></div>
+    <div class="lineup-modal-body">
+      <div class="lineup-left">
+        <div id="pitch-container"></div>
+        <div class="pitch-legend">
+          <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#b8860b"></div>Portero</div>
+          <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#0057B7"></div>Defensa</div>
+          <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#1a7a3c"></div>Mediocampo</div>
+          <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#c0392b"></div>Delantero</div>
+          <div class="pitch-legend-item"><div class="pitch-legend-dot" style="background:#f1c40f;width:8px;height:8px;border-radius:2px"></div>Gol</div>
+        </div>
+      </div>
+      <div class="lineup-right">
+        <div class="lineup-section">
+          <div class="lineup-section-title">Titulares</div>
+          <div id="lineup-titulares"></div>
+        </div>
+        <div class="lineup-section">
+          <div class="lineup-section-title">Suplentes</div>
+          <div id="lineup-suplentes"></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -1363,7 +1380,7 @@ function renderPitchSVG(layout, scorerMap) {
     }
     return `<g>${g}</g>`;
   }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;border-radius:8px"><rect width="${W}" height="${H}" fill="#2e7d32"/>${stripes}${lines}${cPaths}${chips}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;display:block"><rect width="${W}" height="${H}" fill="#2e7d32"/>${stripes}${lines}${cPaths}${chips}</svg>`;
 }
 
 function openLineup(matchId) {
