@@ -1,7 +1,7 @@
 // ADMIN-DATA — gestionado desde el panel /admin.html
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
-  "lastUpdated": "2026-06-12T20:32:53.302Z",
+  "lastUpdated": "2026-06-12T20:33:06.646Z",
   "igStats": {
     "posts": 84,
     "seguidores": 235,
@@ -51,7 +51,7 @@ const ADMIN_DATA = {
     ],
     "f9": [
       "Sena x1",
-      "Diego x1"
+      "Mandinga x1"
     ]
   },
   "playerMinutes": {
