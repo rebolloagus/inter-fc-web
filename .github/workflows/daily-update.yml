@@ -44,17 +44,10 @@ jobs:
         run: |
           git config --local user.email "bot@inter-fc.uy"
           git config --local user.name "Inter FC Bot"
-          git add liga-data.js web-inter_fc_2023.html
+          git add liga-data.js web-inter_fc_2023.html index.html
           git commit -m "🤖 Auto-update Liga MVD $(date -u '+%Y-%m-%d %H:%M UTC')"
           git push
 
-      - name: Deploy a Netlify
-        if: steps.changes.outputs.changed == 'true'
-        run: npx netlify-cli deploy --dir . --prod --auth ${{ secrets.NETLIFY_AUTH_TOKEN }} --site ${{ secrets.NETLIFY_SITE_ID }}
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
       - name: Sin cambios
         if: steps.changes.outputs.changed == 'false'
-        run: echo "No hay datos nuevos de Liga MVD. Sin deploy."
+        run: echo "No hay datos nuevos de Liga MVD."
