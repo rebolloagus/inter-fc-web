@@ -347,6 +347,54 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
         </div>
 
         <div class="admin-card">
+          <div class="admin-card-title"><span>📅</span> Próximo Partido</div>
+          <p style="font-size:.83rem;color:var(--gray-light);margin-bottom:1rem;line-height:1.6">
+            Actualizá los datos del próximo partido. La cancha y fecha se publican en la web automáticamente cuando las cargás acá.
+          </p>
+          <div class="form-row cols-2">
+            <div class="form-group">
+              <label>Fecha N°</label>
+              <input type="text" id="nm-fechanum" placeholder="12">
+            </div>
+            <div class="form-group">
+              <label>Rival</label>
+              <input type="text" id="nm-rival" placeholder="Nombre del rival">
+            </div>
+          </div>
+          <div class="form-row cols-3">
+            <div class="form-group">
+              <label>Día</label>
+              <input type="date" id="nm-date" placeholder="">
+            </div>
+            <div class="form-group">
+              <label>Hora</label>
+              <input type="text" id="nm-time" placeholder="09:00">
+            </div>
+            <div class="form-group">
+              <label>Cancha</label>
+              <input type="text" id="nm-cancha" placeholder="Cancha 13">
+            </div>
+          </div>
+          <div class="form-row cols-2" style="margin-top:.5rem">
+            <div class="form-group">
+              <label>Rival — posición y puntos</label>
+              <div style="display:flex;gap:.5rem">
+                <input type="number" id="nm-rival-pos" placeholder="Pos" min="1" max="20" style="width:70px">
+                <input type="number" id="nm-rival-pts" placeholder="Pts" min="0" style="flex:1">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>El Inter — posición y puntos</label>
+              <div style="display:flex;gap:.5rem">
+                <input type="number" id="nm-inter-pos" placeholder="Pos" min="1" max="20" style="width:70px">
+                <input type="number" id="nm-inter-pts" placeholder="Pts" min="0" style="flex:1">
+              </div>
+            </div>
+          </div>
+          <button class="btn btn-primary" onclick="saveNextMatch()">Guardar próximo partido</button>
+        </div>
+
+        <div class="admin-card">
           <div class="admin-card-title"><span>🔒</span> Cambiar contraseña del panel</div>
           <div class="form-row cols-2">
             <div class="form-group">
@@ -516,6 +564,7 @@ function initPanel() {
   loadTokenDisplay();
   loadRepoInput();
   loadIgStats();
+  loadNextMatch();
 }
 
 function buildMatchSelectors() {
@@ -853,6 +902,35 @@ function loadIgStats() {
   document.getElementById('ig-posts').value = ig.posts;
   document.getElementById('ig-seguidores').value = ig.seguidores;
   document.getElementById('ig-siguiendo').value = ig.siguiendo;
+}
+
+function loadNextMatch() {
+  const nm = DATA.nextMatch || {};
+  document.getElementById('nm-fechanum').value = nm.fechaNum || '';
+  document.getElementById('nm-rival').value = nm.rival || '';
+  document.getElementById('nm-date').value = nm.date || '';
+  document.getElementById('nm-time').value = nm.time || '';
+  document.getElementById('nm-cancha').value = nm.cancha || '';
+  document.getElementById('nm-rival-pos').value = nm.rivalPos || '';
+  document.getElementById('nm-rival-pts').value = nm.rivalPts || '';
+  document.getElementById('nm-inter-pos').value = nm.interPos || '';
+  document.getElementById('nm-inter-pts').value = nm.interPts || '';
+}
+
+function saveNextMatch() {
+  DATA.nextMatch = {
+    fechaNum: document.getElementById('nm-fechanum').value.trim(),
+    rival: document.getElementById('nm-rival').value.trim(),
+    date: document.getElementById('nm-date').value,
+    time: document.getElementById('nm-time').value.trim(),
+    cancha: document.getElementById('nm-cancha').value.trim(),
+    rivalPos: parseInt(document.getElementById('nm-rival-pos').value) || null,
+    rivalPts: parseInt(document.getElementById('nm-rival-pts').value) || null,
+    interPos: parseInt(document.getElementById('nm-inter-pos').value) || null,
+    interPts: parseInt(document.getElementById('nm-inter-pts').value) || null,
+  };
+  setStatus('Próximo partido listo — hacé click en "Guardar en GitHub y publicar"', 'ok');
+  toast('✓ Próximo partido guardado. Ahora publicá en GitHub.', 'ok');
 }
 
 function saveIgStats() {

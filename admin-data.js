@@ -81,17 +81,28 @@ const ADMIN_DATA = {
   },
   "matchResults": {
     "Fecha 10": {
-      "gf": null,
-      "gc": null,
-      "type": null,
+      "gf": 4,
+      "gc": 1,
+      "type": "W",
       "rival": "Capitol F.C."
     },
     "Fecha 11": {
       "gf": null,
       "gc": null,
       "type": null,
-      "rival": "La Favela"
+      "rival": "La Favela FC"
     }
+  },
+  "nextMatch": {
+    "fechaNum": "11",
+    "rival": "La Favela FC",
+    "date": "",
+    "time": "",
+    "cancha": "",
+    "rivalPos": 9,
+    "rivalPts": 9,
+    "interPos": 3,
+    "interPts": 22
   },
   "scorersByMatch": {
     "amistoso": [
