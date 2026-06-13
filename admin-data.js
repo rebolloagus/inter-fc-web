@@ -1,8 +1,79 @@
 // ADMIN-DATA — gestionado desde el panel /admin.html
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
-  "lastUpdated": "2026-06-13T16:32:30.245Z",
-  "lineups": {},
+  "lastUpdated": "2026-06-13T16:52:34.211Z",
+  "lineups": {
+    "Fecha 10": {
+      "titulares": [
+        {
+          "name": "Jubin",
+          "pos": "POR"
+        },
+        {
+          "name": "Enzo",
+          "pos": "DFD"
+        },
+        {
+          "name": "Juli Rios",
+          "pos": "DFC"
+        },
+        {
+          "name": "Mati",
+          "pos": "DFC"
+        },
+        {
+          "name": "Brandon",
+          "pos": "DFI"
+        },
+        {
+          "name": "Vidal",
+          "pos": "MD"
+        },
+        {
+          "name": "Pato",
+          "pos": "MC"
+        },
+        {
+          "name": "Sena",
+          "pos": "MC"
+        },
+        {
+          "name": "Franco F",
+          "pos": "MI"
+        },
+        {
+          "name": "Mandinga",
+          "pos": "DC"
+        },
+        {
+          "name": "Elias",
+          "pos": "DC"
+        }
+      ],
+      "suplentes": [
+        {
+          "name": "Vicente",
+          "pos": ""
+        },
+        {
+          "name": "Lolo",
+          "pos": ""
+        },
+        {
+          "name": "Pata",
+          "pos": ""
+        },
+        {
+          "name": "Lucas Godoy",
+          "pos": ""
+        },
+        {
+          "name": "Andres Guerra",
+          "pos": ""
+        }
+      ]
+    }
+  },
   "igStats": {
     "posts": 84,
     "seguidores": 235,
