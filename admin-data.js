@@ -155,7 +155,125 @@ const ADMIN_DATA = {
       "Mandinga x1"
     ]
   },
-  "playerPhotos": {},
+  "playerPhotos": {
+    "Brandon": [
+      "assets/fotos/f1/Brandon Almenarez 2.jpg",
+      "assets/fotos/f1/Brandon Almenarez y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Brandon Almenarez.jpg",
+      "assets/fotos/f1/Fernando Garcia y Brandon Almenarez.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Brandon Almenarez.jpg",
+      "assets/fotos/f1/Sebastian Torena, Ezequiel Arrizabalaga, Brandon Almenarez y Enzo Gaione.jpg"
+    ],
+    "Diego": [
+      "assets/fotos/f1/Diego Friedrich y Fabian Couto.jpg",
+      "assets/fotos/f1/Diego Friedrich.jpg",
+      "assets/fotos/f1/Fernando Garcia, Facundo Munchs, Julian Rios y Diego Friedrich.jpg",
+      "assets/fotos/f1/Sebastian Torena y Diego Friedrich.jpg"
+    ],
+    "Enzo": [
+      "assets/fotos/f1/Sebastian Torena, Ezequiel Arrizabalaga, Brandon Almenarez y Enzo Gaione.jpg"
+    ],
+    "Fabian Couto": [
+      "assets/fotos/f1/Diego Friedrich y Fabian Couto.jpg",
+      "assets/fotos/f1/Fabian Couto y Mauro Cabrera.jpg",
+      "assets/fotos/f1/Fabián Couto, Franco Irisarri y Facundo Munchs.jpg"
+    ],
+    "Facu Munchs": [
+      "assets/fotos/f1/Fabián Couto, Franco Irisarri y Facundo Munchs.jpg",
+      "assets/fotos/f1/Facundo Munchs 2.jpg",
+      "assets/fotos/f1/Facundo Munchs 3.jpg",
+      "assets/fotos/f1/Facundo Munchs 4.jpg",
+      "assets/fotos/f1/Facundo Munchs 5.jpg",
+      "assets/fotos/f1/Facundo Munchs y Franco Irisarri.jpg",
+      "assets/fotos/f1/Facundo Munchs.jpg",
+      "assets/fotos/f1/Fernando Garcia, Facundo Munchs, Julian Rios y Diego Friedrich.jpg"
+    ],
+    "Franco F": [
+      "assets/fotos/f1/Franco Friedrich 2.jpg",
+      "assets/fotos/f1/Franco Friedrich y Julian Rios.jpg",
+      "assets/fotos/f1/Franco Friedrich y Sebastian Torena.jpg",
+      "assets/fotos/f1/Franco Friedrich.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Franco Friedrich.jpg"
+    ],
+    "Franco Irri": [
+      "assets/fotos/f1/Fabián Couto, Franco Irisarri y Facundo Munchs.jpg",
+      "assets/fotos/f1/Facundo Munchs y Franco Irisarri.jpg",
+      "assets/fotos/f1/Franco Irisarri y Fernando Garcia.jpg",
+      "assets/fotos/f1/Franco Irisarri.jpg"
+    ],
+    "Jubin": [
+      "assets/fotos/f1/Martin Sena y Tomas Jubin.jpg",
+      "assets/fotos/f1/Martin Sena, Tomas Jubin y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Sebastian Torena, Fernando Garcia, Matias Gonzalez y Tomas Jubin.jpg",
+      "assets/fotos/f1/Tomas Jubin 2.jpg",
+      "assets/fotos/f1/Tomas Jubin 3.jpg",
+      "assets/fotos/f1/Tomas Jubin.jpg"
+    ],
+    "Juli Rios": [
+      "assets/fotos/f1/Fernando Garcia, Facundo Munchs, Julian Rios y Diego Friedrich.jpg",
+      "assets/fotos/f1/Franco Friedrich y Julian Rios.jpg",
+      "assets/fotos/f1/Julian Rios 2.jpg",
+      "assets/fotos/f1/Julian Rios.jpg",
+      "assets/fotos/f1/Mauro Cabrera, Julian Rios y Fernando Garcia.jpg"
+    ],
+    "Mati": [
+      "assets/fotos/f1/Brandon Almenarez y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Fernando Garcia y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Martin Sena, Tomas Jubin y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Brandon Almenarez.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Franco Friedrich.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Martin Sena.jpg",
+      "assets/fotos/f1/Mauro Cabrera y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Sebastian Torena, Fernando Garcia, Matias Gonzalez y Tomas Jubin.jpg",
+      "assets/fotos/f1/Sebastian Torena, Mauro Cabrera y Matias Gonzalez.jpg"
+    ],
+    "Nando": [
+      "assets/fotos/f1/Fernando Garcia y Brandon Almenarez.jpg",
+      "assets/fotos/f1/Fernando Garcia y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Fernando Garcia y Mauro Cabrera.jpg",
+      "assets/fotos/f1/Fernando Garcia, Facundo Munchs, Julian Rios y Diego Friedrich.jpg",
+      "assets/fotos/f1/Franco Irisarri y Fernando Garcia.jpg",
+      "assets/fotos/f1/Martin Sena y Fernando Garcia.jpg",
+      "assets/fotos/f1/Mauro Cabrera, Julian Rios y Fernando Garcia.jpg",
+      "assets/fotos/f1/Sebastian Torena, Fernando Garcia, Matias Gonzalez y Tomas Jubin.jpg"
+    ],
+    "Pato": [
+      "assets/fotos/f1/Fabian Couto y Mauro Cabrera.jpg",
+      "assets/fotos/f1/Fernando Garcia y Mauro Cabrera.jpg",
+      "assets/fotos/f1/Mauro Cabrera y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Mauro Cabrera, Julian Rios y Fernando Garcia.jpg",
+      "assets/fotos/f1/Mauro Cabrera.jpg",
+      "assets/fotos/f1/Sebastian Torena, Mauro Cabrera y Matias Gonzalez.jpg"
+    ],
+    "Seba T": [
+      "assets/fotos/f1/Franco Friedrich y Sebastian Torena.jpg",
+      "assets/fotos/f1/Sebastian Torena 2.jpg",
+      "assets/fotos/f1/Sebastian Torena 3.jpg",
+      "assets/fotos/f1/Sebastian Torena 4.jpg",
+      "assets/fotos/f1/Sebastian Torena 5.jpg",
+      "assets/fotos/f1/Sebastian Torena 6.jpg",
+      "assets/fotos/f1/Sebastian Torena 7.jpg",
+      "assets/fotos/f1/Sebastian Torena 8.jpg",
+      "assets/fotos/f1/Sebastian Torena 9.jpg",
+      "assets/fotos/f1/Sebastian Torena y Diego Friedrich.jpg",
+      "assets/fotos/f1/Sebastian Torena y Vicente Gaitano.jpg",
+      "assets/fotos/f1/Sebastian Torena, Ezequiel Arrizabalaga, Brandon Almenarez y Enzo Gaione.jpg",
+      "assets/fotos/f1/Sebastian Torena, Fernando Garcia, Matias Gonzalez y Tomas Jubin.jpg",
+      "assets/fotos/f1/Sebastian Torena, Mauro Cabrera y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Sebastian Torena.jpg"
+    ],
+    "Sena": [
+      "assets/fotos/f1/Martin Sena 2.jpg",
+      "assets/fotos/f1/Martin Sena y Fernando Garcia.jpg",
+      "assets/fotos/f1/Martin Sena y Tomas Jubin.jpg",
+      "assets/fotos/f1/Martin Sena, Tomas Jubin y Matias Gonzalez.jpg",
+      "assets/fotos/f1/Martin Sena.jpg",
+      "assets/fotos/f1/Matias Gonzalez y Martin Sena.jpg"
+    ],
+    "Vicente": [
+      "assets/fotos/f1/Sebastian Torena y Vicente Gaitano.jpg"
+    ]
+  },
   "playerMinutes": {
     "amistoso": {
       "Jubin": 90,

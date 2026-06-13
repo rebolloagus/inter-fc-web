@@ -1222,7 +1222,7 @@ function openModal(player) {
   if (playerPhotos.length > 0) {
     fotosBtn.style.display = 'inline-flex';
     fotosBtn.textContent = `📷 Fotos (${playerPhotos.length})`;
-    fotosBtn.onclick = () => openFotos(player.name, player.fullName || player.name, playerPhotos);
+    fotosBtn.onclick = () => openFotos(player.fullName || player.name, playerPhotos);
   } else {
     fotosBtn.style.display = 'none';
   }
@@ -1490,15 +1490,15 @@ window.addEventListener('scroll', () => {
 // =====================
 // FOTOS JUGADOR
 // =====================
-let _fotosFiles = [], _fotosFolder = '', _fotosIdx = 0;
+let _fotosFiles = [], _fotosIdx = 0;
 
-function openFotos(folder, playerName, files) {
+function openFotos(playerName, files) {
   _fotosFiles = files;
-  _fotosFolder = folder;
   document.getElementById('fotos-header-name').textContent = playerName;
-  document.getElementById('fotos-grid').innerHTML = files.map((f, i) =>
-    `<div class="fotos-grid-item" onclick="openFotoViewer(${i})"><img src="assets/fotos/${folder}/${f}" alt="Foto ${i+1}" loading="lazy"></div>`
-  ).join('');
+  document.getElementById('fotos-grid').innerHTML = files.map((f, i) => {
+    const enc = f.split('/').map(encodeURIComponent).join('/');
+    return `<div class="fotos-grid-item" onclick="openFotoViewer(${i})"><img src="${enc}" alt="Foto ${i+1}" loading="lazy"></div>`;
+  }).join('');
   document.getElementById('fotosModal').classList.add('open');
 }
 
@@ -1513,7 +1513,8 @@ function openFotoViewer(idx) {
 }
 
 function _updateViewer() {
-  document.getElementById('fotos-viewer-img').src = `assets/fotos/${_fotosFolder}/${_fotosFiles[_fotosIdx]}`;
+  const f = _fotosFiles[_fotosIdx];
+  document.getElementById('fotos-viewer-img').src = f.split('/').map(encodeURIComponent).join('/');
 }
 
 function closeFotoViewer() {
