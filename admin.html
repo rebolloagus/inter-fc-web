@@ -426,34 +426,34 @@ function sha1(str) {
 const DATA = JSON.parse(JSON.stringify(ADMIN_DATA));
 
 const PLAYERS = [
-  { number:1, name:'Jubin', pos:'Golero' },
-  { number:2, name:'Vicente', pos:'Zaguero' },
-  { number:3, name:'Brandon', pos:'Lateral Izq' },
-  { number:4, name:'Renzo', pos:'Volante Der' },
-  { number:6, name:'Juli Rios', pos:'Medio' },
-  { number:7, name:'Vidal', pos:'Volante Der' },
-  { number:8, name:'Franco F', pos:'Medio' },
-  { number:9, name:'Diego', pos:'Delantero' },
-  { number:10, name:'Elias', pos:'Delantero' },
-  { number:12, name:'Negrin', pos:'Delantero' },
-  { number:15, name:'Nando', pos:'Zaguero' },
-  { number:16, name:'Lolo', pos:'Lateral Der' },
-  { number:17, name:'Pata', pos:'Volante Der' },
-  { number:18, name:'Franco Irri', pos:'Enganche' },
-  { number:19, name:'Facu Munchs', pos:'Delantero' },
-  { number:20, name:'Seba B', pos:'Volante Der' },
-  { number:21, name:'Enzo', pos:'Zaguero' },
-  { number:22, name:'Pato', pos:'Medio' },
-  { number:23, name:'Seba T', pos:'Volante Der' },
-  { number:24, name:'Mati', pos:'Zaguero' },
-  { number:27, name:'Mandinga', pos:'Delantero' },
-  { number:28, name:'Mariano', pos:'Zaguero' },
-  { number:29, name:'Fabian Couto', pos:'Lateral Der' },
-  { number:30, name:'Diego Rodriguez', pos:'Volante Der' },
-  { number:32, name:'Lucas Godoy', pos:'Delantero' },
-  { number:33, name:'Andres Guerra', pos:'Delantero' },
-  { number:72, name:'Sena', pos:'Zaguero' },
-  { number:99, name:'Ignacio Luy', pos:'Volante' },
+  { number:1,  name:'Jubin',          fullName:'Tomás Jubin',         pos:'Golero' },
+  { number:2,  name:'Vicente',        fullName:'Vicente Gaitano',     pos:'Zaguero' },
+  { number:3,  name:'Brandon',        fullName:'Brandon Almenarez',   pos:'Lateral Izq' },
+  { number:4,  name:'Renzo',          fullName:'Renzo Soliwoda',      pos:'Volante Der' },
+  { number:6,  name:'Juli Rios',      fullName:'Julián Ríos',         pos:'Medio' },
+  { number:7,  name:'Vidal',          fullName:'Lucas Vidal',         pos:'Volante Der' },
+  { number:8,  name:'Franco F',       fullName:'Franco Friedrich',    pos:'Medio' },
+  { number:9,  name:'Diego',          fullName:'Diego Friedrich',     pos:'Delantero' },
+  { number:10, name:'Elias',          fullName:'Elias Pastorino',     pos:'Delantero' },
+  { number:12, name:'Negrin',         fullName:'Martín Negrín',       pos:'Delantero' },
+  { number:15, name:'Nando',          fullName:'Fernando García',     pos:'Zaguero' },
+  { number:16, name:'Lolo',           fullName:'Lorenzo Cámara',      pos:'Lateral Der' },
+  { number:17, name:'Pata',           fullName:'Ignacio Zapata',      pos:'Volante Der' },
+  { number:18, name:'Franco Irri',    fullName:'Franco Irisarri',     pos:'Enganche' },
+  { number:19, name:'Facu Munchs',    fullName:'Facundo Munchs',      pos:'Delantero' },
+  { number:20, name:'Seba B',         fullName:'Sebastián Barisone',  pos:'Volante Der' },
+  { number:21, name:'Enzo',           fullName:'Enzo Gaione',         pos:'Zaguero' },
+  { number:22, name:'Pato',           fullName:'Mauro Cabrera',       pos:'Medio' },
+  { number:23, name:'Seba T',         fullName:'Sebastián Torena',    pos:'Volante Der' },
+  { number:24, name:'Mati',           fullName:'Matias González',     pos:'Zaguero' },
+  { number:27, name:'Mandinga',       fullName:'Ezequiel Muñoz',      pos:'Delantero' },
+  { number:28, name:'Mariano',        fullName:'Mariano Perdomo',     pos:'Zaguero' },
+  { number:29, name:'Fabian Couto',   fullName:'Fabián Couto',        pos:'Lateral Der' },
+  { number:30, name:'Diego Rodriguez',fullName:'Diego Rodríguez',     pos:'Volante Der' },
+  { number:32, name:'Lucas Godoy',    fullName:'Lucas Godoy',         pos:'Delantero' },
+  { number:33, name:'Andres Guerra',  fullName:'Andrés Guerra',       pos:'Delantero' },
+  { number:72, name:'Sena',           fullName:'Martín Sena',         pos:'Zaguero' },
+  { number:99, name:'Ignacio Luy',    fullName:'Ignacio Luy',         pos:'Volante' },
 ];
 
 const MATCHES_BASE = [
@@ -550,7 +550,7 @@ function getAllMatches() {
 function buildPlayerSelect() {
   const sel = document.getElementById('scorer-player-select');
   sel.innerHTML = '<option value="">Seleccionar jugador...</option>' +
-    PLAYERS.map(p => `<option value="${p.name}">${p.number ? '#'+p.number+' ' : ''}${p.name}</option>`).join('');
+    PLAYERS.map(p => `<option value="${p.name}">${p.number ? '#'+p.number+' ' : ''}${p.fullName || p.name}</option>`).join('');
 }
 
 // =====================
@@ -664,11 +664,19 @@ function renderScorerList(matchId) {
   if (scorers.length === 0) {
     list.innerHTML = '<div style="color:var(--gray);font-size:.82rem;padding:.3rem 0">Sin goleadores cargados</div>';
   } else {
-    list.innerHTML = scorers.map((s, i) => `
+    list.innerHTML = scorers.map((s, i) => {
+      const sm = s.match(/^(.+?)\s+x(\d+)$/);
+      const adminName = sm ? sm[1].trim() : s.trim();
+      const goals = sm ? parseInt(sm[2]) : 1;
+      const pl = PLAYERS.find(p => p.name === adminName);
+      const dn = (pl && pl.fullName) || adminName;
+      const label = `${dn}${goals > 1 ? ' ×'+goals : ''}`;
+      return `
       <div class="scorer-item">
-        <span>⚽ ${s}</span>
+        <span>⚽ ${label}</span>
         <button class="scorer-remove" onclick="removeScorer('${matchId}',${i})">✕</button>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   }
 }
 
@@ -753,7 +761,7 @@ function addNewMatch() {
 // =====================
 // LINEUP
 // =====================
-const POSITIONS = ['POR','LD','LI','DFC','DFD','DFI','MD','MI','MC','ENG','DC','DEL','EXT'];
+const POSITIONS = ['POR','DFD','DFC','DFI','MCD','MC','MCO','MD','MI','DC','ED','EI'];
 let currentLineupMatch = null;
 
 function getLineup(matchId) {

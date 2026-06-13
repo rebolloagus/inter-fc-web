@@ -1187,7 +1187,14 @@ const resultsGrid = document.getElementById('results-grid');
 MATCHES.forEach((m, i) => {
   const typeLabel = { W: 'Victoria', D: 'Empate', L: 'Derrota', friendly: 'Amistoso' }[m.type];
   const typeBadge = { W: 'badge-win', D: 'badge-draw', L: 'badge-loss', friendly: 'badge-friendly' }[m.type];
-  const scorers = (SCORERS_BY_MATCH[m.id] || []).map(s => `<span class="scorer-tag">⚽ ${s}</span>`).join('');
+  const scorers = (SCORERS_BY_MATCH[m.id] || []).map(s => {
+    const sm = s.match(/^(.+?)\s+x(\d+)$/);
+    const adminName = sm ? sm[1].trim() : s.trim();
+    const goals = sm ? parseInt(sm[2]) : 1;
+    const pl = PLAYERS.find(p => p.name === adminName);
+    const dn = (pl && pl.fullName) || adminName;
+    return `<span class="scorer-tag">⚽ ${dn}${goals > 1 ? ' ×'+goals : ''}</span>`;
+  }).join('');
   const fechaLabel = m.id === 'amistoso' ? 'Amistoso' : `Fecha ${i} · Liga MVD`;
   const card = `<div class="match-card ${m.type === 'friendly' ? 'friendly' : m.type.toLowerCase()} fade-in stagger-${(i%3)+1}" onclick="openLineup('${m.id}')" style="cursor:pointer">
     <div class="match-header">
@@ -1358,7 +1365,10 @@ function buildFormationLayout(titulares) {
   const md   = titulares.filter(p => p.pos === 'MD');
   const midRow = [...mi, ...mc, ...md];
   const aMid = titulares.filter(p => p.pos === 'MCO');
-  const fwd  = titulares.filter(p => p.pos === 'DC');
+  const dc   = titulares.filter(p => p.pos === 'DC');
+  const ed   = titulares.filter(p => p.pos === 'ED');
+  const ei   = titulares.filter(p => p.pos === 'EI');
+  const fwd  = [...ei, ...dc, ...ed];
 
   function dist(n) { return Array.from({length:n},(_,i)=>(100/(n+1))*(i+1)); }
 
@@ -1388,7 +1398,7 @@ function renderPitchSVG(layout, scorerMap) {
   function chipColor(pos) {
     if (pos === 'POR') return '#b8860b';
     if (pos && pos.startsWith('DF')) return '#0057B7';
-    if (pos === 'DC') return '#c0392b';
+    if (pos === 'DC' || pos === 'ED' || pos === 'EI') return '#c0392b';
     return '#1a7a3c';
   }
   const stripes = [0,1,2,3,4].map(i=>`<rect x="0" y="${i*72}" width="${W}" height="36" fill="rgba(0,0,0,.07)"/>`).join('');
@@ -1471,7 +1481,7 @@ function openLineup(matchId) {
     if (!pos) return '';
     if (pos === 'POR') return 'pos-por';
     if (pos.startsWith('DF')) return 'pos-def';
-    if (pos === 'DC') return 'pos-fwd';
+    if (pos === 'DC' || pos === 'ED' || pos === 'EI') return 'pos-fwd';
     return 'pos-mid';
   }
   function renderP(p) {
