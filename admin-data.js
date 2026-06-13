@@ -2,6 +2,7 @@
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
   "lastUpdated": "2026-06-12T20:33:06.646Z",
+  "lineups": {},
   "igStats": {
     "posts": 84,
     "seguidores": 235,

@@ -117,6 +117,16 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
 .result-badge.L{background:rgba(248,113,113,.15);color:var(--loss)}
 .result-badge.D{background:rgba(250,204,21,.15);color:var(--draw)}
 
+/* LINEUP */
+.lineup-row{display:flex;align-items:center;gap:.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:.4rem .7rem;margin-bottom:.4rem}
+.lineup-row select{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:.3rem .45rem;color:var(--white);font-size:.82rem;outline:none;transition:border .15s}
+.lineup-row select:focus{border-color:var(--blue-light)}
+.lineup-row select option{background:var(--bg)}
+.lineup-pos-sel{width:68px}
+.lineup-player-sel{flex:1}
+.lineup-noenter{display:flex;align-items:center;gap:.35rem;font-size:.76rem;color:var(--gray-light);white-space:nowrap;cursor:pointer}
+.lineup-noenter input{width:13px;height:13px;cursor:pointer;accent-color:var(--gold)}
+
 /* CONFIG */
 .token-display{font-family:monospace;font-size:.75rem;color:var(--gray);word-break:break-all;background:var(--bg2);padding:.5rem .8rem;border-radius:6px;border:1px solid var(--border);margin-top:.5rem}
 
@@ -160,6 +170,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
       <div class="nav-item active" onclick="showTab('resultados',this)"><span class="nav-icon">🏆</span> Resultados</div>
       <div class="nav-item" onclick="showTab('goleadores',this)"><span class="nav-icon">⚽</span> Goleadores</div>
       <div class="nav-item" onclick="showTab('minutos',this)"><span class="nav-icon">⏱</span> Minutos</div>
+      <div class="nav-item" onclick="showTab('alineacion',this)"><span class="nav-icon">📋</span> Alineación</div>
       <div class="nav-item" onclick="showTab('config',this)"><span class="nav-icon">⚙️</span> Configuración</div>
       <div class="sidebar-bottom">
         <button class="btn-logout" onclick="doLogout()">Cerrar sesión</button>
@@ -245,6 +256,30 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--white);min-
             <thead><tr><th>#</th><th>Jugador</th><th>Posición</th><th>Minutos</th></tr></thead>
             <tbody id="minutes-tbody"></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- ALINEACIÓN -->
+      <div class="tab-section" id="tab-alineacion">
+        <div class="page-title">Alineación</div>
+        <div class="page-sub">Cargá la alineación titular y suplentes para cada partido</div>
+
+        <div class="match-selector" id="lineup-match-selector"></div>
+
+        <div id="lineup-editor" style="display:none">
+          <div class="admin-card">
+            <div class="admin-card-title">
+              <span>🟢</span> Titulares
+              <span id="titulares-count" style="font-size:.8rem;color:var(--gray);margin-left:.4rem;font-weight:400">(0/11)</span>
+            </div>
+            <div id="titulares-list"></div>
+            <button class="btn btn-primary btn-sm" style="margin-top:.6rem" onclick="addLineupPlayer('titulares')">+ Agregar titular</button>
+          </div>
+          <div class="admin-card">
+            <div class="admin-card-title"><span>🟡</span> Suplentes</div>
+            <div id="suplentes-list"></div>
+            <button class="btn btn-primary btn-sm" style="margin-top:.6rem" onclick="addLineupPlayer('suplentes')">+ Agregar suplente</button>
+          </div>
         </div>
       </div>
 
@@ -392,17 +427,18 @@ const PLAYERS = [
   { number:18, name:'Franco Irri', pos:'Enganche' },
   { number:19, name:'Facu Munchs', pos:'Delantero' },
   { number:20, name:'Seba B', pos:'Volante Der' },
-  { number:21, name:'Enzo Gaione', pos:'Zaguero' },
+  { number:21, name:'Enzo', pos:'Zaguero' },
   { number:22, name:'Pato', pos:'Medio' },
   { number:23, name:'Seba T', pos:'Volante Der' },
   { number:24, name:'Mati', pos:'Zaguero' },
   { number:27, name:'Mandinga', pos:'Delantero' },
   { number:28, name:'Mariano', pos:'Zaguero' },
   { number:29, name:'Fabian Couto', pos:'Lateral Der' },
+  { number:30, name:'Diego Rodriguez', pos:'Volante Der' },
+  { number:32, name:'Lucas Godoy', pos:'Delantero' },
+  { number:33, name:'Andres Guerra', pos:'Delantero' },
   { number:72, name:'Sena', pos:'Zaguero' },
   { number:99, name:'Ignacio Luy', pos:'Volante' },
-  { number:null, name:'Andres Guerra', pos:'Delantero' },
-  { number:null, name:'Lucas Godoy', pos:'Delantero' },
 ];
 
 const MATCHES_BASE = [
@@ -469,13 +505,15 @@ function initPanel() {
 
 function buildMatchSelectors() {
   const matches = getAllMatches();
-  ['result', 'scorer', 'minutes'].forEach(type => {
+  ['result', 'scorer', 'minutes', 'lineup'].forEach(type => {
     const el = document.getElementById(`${type}-match-selector`);
     el.innerHTML = matches.map(m => {
       const hasData = type === 'scorer'
         ? (DATA.scorersByMatch[m.id] || []).length > 0
         : type === 'minutes'
         ? Object.keys(DATA.playerMinutes[m.id] || {}).length > 0
+        : type === 'lineup'
+        ? (DATA.lineups && DATA.lineups[m.id] && (DATA.lineups[m.id].titulares || []).length > 0)
         : DATA.matchResults[m.id];
       return `<div class="match-pill ${hasData ? 'has-data' : ''}"
                 onclick="selectMatch('${type}','${m.id}',this)">${m.label.replace('Amistoso vs ','Amistoso / ')}</div>`;
@@ -527,6 +565,9 @@ function selectMatch(type, matchId, pillEl) {
   } else if (type === 'minutes') {
     currentMinutesMatch = matchId;
     showMinutesEditor(matchId);
+  } else if (type === 'lineup') {
+    currentLineupMatch = matchId;
+    showLineupEditor(matchId);
   }
 }
 
@@ -674,6 +715,90 @@ function saveMinute(matchId, playerName, val) {
     delete DATA.playerMinutes[matchId][playerName];
   }
   setStatus(`Minutos actualizados`, 'ok');
+}
+
+// =====================
+// LINEUP
+// =====================
+const POSITIONS = ['POR','LD','LI','DFC','DFD','DFI','MD','MI','MC','ENG','DC','DEL','EXT'];
+let currentLineupMatch = null;
+
+function getLineup(matchId) {
+  if (!DATA.lineups) DATA.lineups = {};
+  if (!DATA.lineups[matchId]) DATA.lineups[matchId] = { titulares: [], suplentes: [] };
+  return DATA.lineups[matchId];
+}
+
+function showLineupEditor(matchId) {
+  document.getElementById('lineup-editor').style.display = 'block';
+  renderLineupSection('titulares');
+  renderLineupSection('suplentes');
+}
+
+function renderLineupSection(section) {
+  const matchId = currentLineupMatch;
+  if (!matchId) return;
+  const lu = getLineup(matchId);
+  const players = lu[section] || [];
+  const container = document.getElementById(`${section}-list`);
+  if (players.length === 0) {
+    container.innerHTML = '<div style="color:var(--gray);font-size:.82rem;padding:.3rem 0 .6rem">Sin jugadores cargados</div>';
+  } else {
+    container.innerHTML = players.map((p, i) => renderLineupRow(section, i, p)).join('');
+  }
+  if (section === 'titulares') {
+    document.getElementById('titulares-count').textContent = `(${players.length}/11)`;
+  }
+}
+
+function renderLineupRow(section, idx, p) {
+  const posOpts = POSITIONS.map(pos =>
+    `<option value="${pos}" ${p.pos === pos ? 'selected' : ''}>${pos}</option>`
+  ).join('');
+  const playerOpts = PLAYERS.map(pl =>
+    `<option value="${pl.name}" ${p.name === pl.name ? 'selected' : ''}>${pl.number ? '#'+pl.number+' ' : ''}${pl.name}</option>`
+  ).join('');
+  const noEnterField = section === 'suplentes'
+    ? `<label class="lineup-noenter"><input type="checkbox" ${p.noEnter ? 'checked' : ''} onchange="updateLP('${section}',${idx},'noEnter',this.checked)"> No ingresó</label>`
+    : '';
+  return `<div class="lineup-row">
+    <select class="lineup-pos-sel" onchange="updateLP('${section}',${idx},'pos',this.value)">
+      <option value="">Pos…</option>${posOpts}
+    </select>
+    <select class="lineup-player-sel" onchange="updateLP('${section}',${idx},'name',this.value)">
+      <option value="">Jugador…</option>${playerOpts}
+    </select>
+    ${noEnterField}
+    <button class="scorer-remove" onclick="removeLP('${section}',${idx})" title="Eliminar">✕</button>
+  </div>`;
+}
+
+function addLineupPlayer(section) {
+  const matchId = currentLineupMatch;
+  if (!matchId) return toast('Seleccioná un partido primero', 'err');
+  getLineup(matchId)[section].push({ name: '', pos: '' });
+  renderLineupSection(section);
+  buildMatchSelectors();
+  // Restore active pill
+  document.querySelectorAll('#lineup-match-selector .match-pill').forEach(p => {
+    if (p.getAttribute('onclick')?.includes(`'${matchId}'`)) p.classList.add('active');
+  });
+}
+
+function removeLP(section, idx) {
+  getLineup(currentLineupMatch)[section].splice(idx, 1);
+  renderLineupSection(section);
+  buildMatchSelectors();
+  document.querySelectorAll('#lineup-match-selector .match-pill').forEach(p => {
+    if (p.getAttribute('onclick')?.includes(`'${currentLineupMatch}'`)) p.classList.add('active');
+  });
+}
+
+function updateLP(section, idx, field, value) {
+  const lu = getLineup(currentLineupMatch);
+  lu[section][idx][field] = (field === 'noEnter') ? value : value;
+  if (section === 'titulares' && field === 'name') renderLineupSection('titulares');
+  setStatus('Alineación actualizada — guardá en GitHub para publicar', 'ok');
 }
 
 // =====================

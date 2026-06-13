@@ -1416,8 +1416,12 @@ function renderPitchSVG(layout, scorerMap) {
     const col = chipColor(p.pos);
     const adminName = LINEUP_NAME_MAP[p.name] || p.name;
     const goals = scorerMap[adminName] || 0;
-    const lbl = p.name.split(' ')[0].substring(0,8);
-    const photoSrc = LINEUP_PHOTOS[p.name];
+    const _pd = PLAYERS.find(pl => pl.name === adminName);
+    const lbl = (_pd && _pd.fullName) || adminName;
+    const shortLbl = lbl.split(' ')[0];
+    const pillW = Math.max(34, Math.round(lbl.length * 3.5 + 5));
+    const lblFs = lbl.length > 15 ? 4.8 : lbl.length > 11 ? 5.3 : 6;
+    const photoSrc = LINEUP_PHOTOS[p.name] || PLAYER_PHOTOS[adminName];
     const ring = goals > 0 ? '#f1c40f' : col;
     const rw = goals > 0 ? 2.5 : 2;
     defs += `<clipPath id="pcp${idx}"><circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${R}"/></clipPath>`;
@@ -1426,12 +1430,12 @@ function renderPitchSVG(layout, scorerMap) {
       g += `<image href="${photoSrc}" x="${(px-R).toFixed(1)}" y="${(py-R).toFixed(1)}" width="${R*2}" height="${R*2}" clip-path="url(#pcp${idx})" preserveAspectRatio="xMidYMid slice"/>`;
     } else {
       g += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${R}" fill="${col}"/>`;
-      g += `<text x="${px.toFixed(1)}" y="${py.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="7" font-weight="700" fill="white">${lbl}</text>`;
+      g += `<text x="${px.toFixed(1)}" y="${py.toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="7" font-weight="700" fill="white">${shortLbl}</text>`;
     }
     g += `<circle cx="${px.toFixed(1)}" cy="${py.toFixed(1)}" r="${R}" fill="none" stroke="${ring}" stroke-width="${rw}"/>`;
     const nly = py + R + 2;
-    g += `<rect x="${(px-17).toFixed(1)}" y="${nly.toFixed(1)}" width="34" height="10" fill="rgba(0,0,0,.65)" rx="3"/>`;
-    g += `<text x="${px.toFixed(1)}" y="${(nly+5.5).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="6.5" font-weight="700" fill="white">${lbl}</text>`;
+    g += `<rect x="${(px-pillW/2).toFixed(1)}" y="${nly.toFixed(1)}" width="${pillW}" height="10" fill="rgba(0,0,0,.65)" rx="3"/>`;
+    g += `<text x="${px.toFixed(1)}" y="${(nly+5.5).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="${lblFs}" font-weight="700" fill="white">${lbl}</text>`;
     if (goals > 0) {
       g += `<circle cx="${(px+R-1).toFixed(1)}" cy="${(py-R+1).toFixed(1)}" r="6.5" fill="#f1c40f" stroke="white" stroke-width="1"/>`;
       g += `<text x="${(px+R-1).toFixed(1)}" y="${(py-R+1).toFixed(1)}" text-anchor="middle" dominant-baseline="middle" font-family="Roboto,Arial,sans-serif" font-size="6.5" font-weight="900" fill="#333">${goals}</text>`;
@@ -1444,7 +1448,7 @@ function renderPitchSVG(layout, scorerMap) {
 
 function openLineup(matchId) {
   const m = MATCHES.find(x => x.id === matchId);
-  const lu = LINEUPS[matchId];
+  const lu = (typeof ADMIN_DATA !== 'undefined' && ADMIN_DATA.lineups && ADMIN_DATA.lineups[matchId]) || LINEUPS[matchId];
   if (!m || !lu) return;
   const scorerMap = {};
   (SCORERS_BY_MATCH[matchId] || []).forEach(s => {
