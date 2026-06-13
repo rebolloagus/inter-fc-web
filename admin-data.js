@@ -348,6 +348,24 @@ const ADMIN_DATA = {
       "Mandinga": 90,
       "Sena": 90,
       "Lucas Godoy": 65
+    },
+    "Fecha 10": {
+      "Jubin": 90,
+      "Enzo": 45,
+      "Mati": 90,
+      "Juli Rios": 80,
+      "Brandon": 90,
+      "Vidal": 80,
+      "Sena": 55,
+      "Pato": 90,
+      "Franco F": 90,
+      "Mandinga": 60,
+      "Elias": 85,
+      "Pata": 25,
+      "Lucas Godoy": 30,
+      "Lolo": 10,
+      "Vicente": 10,
+      "Andres Guerra": 5
     }
   }
 };
