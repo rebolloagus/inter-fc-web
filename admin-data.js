@@ -1,7 +1,7 @@
 // ADMIN-DATA — gestionado desde el panel /admin.html
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
-  "lastUpdated": "2026-06-13T17:02:58.923Z",
+  "lastUpdated": "2026-06-13T19:44:29.333Z",
   "lineups": {
     "Fecha 10": {
       "titulares": [
@@ -85,6 +85,12 @@ const ADMIN_DATA = {
       "gc": null,
       "type": null,
       "rival": "Capitol F.C."
+    },
+    "Fecha 11": {
+      "gf": null,
+      "gc": null,
+      "type": null,
+      "rival": "La Favela"
     }
   },
   "scorersByMatch": {
