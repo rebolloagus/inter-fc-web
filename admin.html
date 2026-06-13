@@ -797,7 +797,7 @@ function renderLineupRow(section, idx, p) {
     `<option value="${pos}" ${p.pos === pos ? 'selected' : ''}>${pos}</option>`
   ).join('');
   const playerOpts = PLAYERS.map(pl =>
-    `<option value="${pl.name}" ${p.name === pl.name ? 'selected' : ''}>${pl.number ? '#'+pl.number+' ' : ''}${pl.name}</option>`
+    `<option value="${pl.name}" ${p.name === pl.name ? 'selected' : ''}>${pl.number ? '#'+pl.number+' ' : ''}${pl.fullName || pl.name}</option>`
   ).join('');
   const noEnterField = section === 'suplentes'
     ? `<label class="lineup-noenter"><input type="checkbox" ${p.noEnter ? 'checked' : ''} onchange="updateLP('${section}',${idx},'noEnter',this.checked)"> No ingresó</label>`
