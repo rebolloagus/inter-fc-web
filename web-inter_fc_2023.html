@@ -1229,6 +1229,7 @@ function openModal(player) {
   const tbody = document.getElementById('modal-minutes-body');
   tbody.innerHTML = '';
   MATCHES.forEach(m => {
+    if (!m.type) return;
     const mins = player.minutes[m.id];
     const dotClass = { W:'dot-win', D:'dot-draw', L:'dot-loss', friendly:'dot-friendly' }[m.type];
     const typeLabel = { W:'V', D:'E', L:'D', friendly:'A' }[m.type];

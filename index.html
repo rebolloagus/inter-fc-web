@@ -1177,6 +1177,9 @@ function jerseysvg(number, color1='#0057B7', color2='#000') {
     <text x="50" y="68" text-anchor="middle" dominant-baseline="middle" font-family="Anton,sans-serif" font-size="22" fill="white">${number !== null ? number : '?'}</text>
   </svg>`;
 }
+function _avatarFallback(img, number) {
+  img.outerHTML = jerseysvg(number, '#0057B7', '#000');
+}
 
 // =====================
 // RENDER PLAYERS
@@ -1222,7 +1225,7 @@ function openModal(player) {
   const photoSrc = PLAYER_PHOTOS[player.name];
   const avatarEl = document.getElementById('modal-avatar');
   if (photoSrc) {
-    avatarEl.innerHTML = `<img src="${photoSrc}" alt="${player.name}" style="width:64px;height:64px;border-radius:12px;object-fit:cover;object-position:top center;border:2px solid var(--blue)" onerror="this.outerHTML='${jerseysvg(player.number,'#0057B7','#000')}'">`;
+    avatarEl.innerHTML = `<img src="${photoSrc}" alt="${player.name}" style="width:64px;height:64px;border-radius:12px;object-fit:cover;object-position:top center;border:2px solid var(--blue)" onerror="_avatarFallback(this,${player.number})">`;
   } else {
     avatarEl.innerHTML = jerseysvg(player.number, '#0057B7', '#000');
   }
@@ -1244,6 +1247,7 @@ function openModal(player) {
   const tbody = document.getElementById('modal-minutes-body');
   tbody.innerHTML = '';
   MATCHES.forEach(m => {
+    if (!m.type) return;
     const mins = player.minutes[m.id];
     const dotClass = { W:'dot-win', D:'dot-draw', L:'dot-loss', friendly:'dot-friendly' }[m.type];
     const typeLabel = { W:'V', D:'E', L:'D', friendly:'A' }[m.type];
