@@ -736,7 +736,7 @@ function saveMinute(matchId, playerName, val) {
 // NEW MATCH
 // =====================
 function addNewMatch() {
-  const id = document.getElementById('new-match-id').value.trim().toLowerCase().replace(/\s/g,'');
+  const id = document.getElementById('new-match-id').value.trim().replace(/\s/g,'');
   const rival = document.getElementById('new-match-rival').value.trim();
   if (!id) return toast('Ingresá el ID del partido (ej: f10)', 'err');
   if (!rival) return toast('Ingresá el nombre del rival', 'err');
