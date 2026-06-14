@@ -90,9 +90,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:64px;
 .slide-btn:hover{background:rgba(0,0,0,.75)}
 .slide-prev{left:.5rem}
 .slide-next{right:.5rem}
-.staff-card.has-fotos{cursor:pointer;transition:border-color .3s,transform .3s}
-.staff-card.has-fotos:hover{border-color:var(--blue-light);transform:translateY(-3px)}
-.staff-fotos-count{font-size:.72rem;color:var(--blue-light);font-weight:700;margin-top:.4rem}
+.staff-card.has-fotos{cursor:pointer}
+.staff-card.has-fotos:hover{transform:translateY(-6px);box-shadow:0 14px 36px rgba(0,87,183,.55);border-color:rgba(80,160,255,.5)}
+.staff-fotos-count{font-size:.68rem;color:rgba(255,255,255,.6);margin-top:.4rem}
 .team-lightbox{display:none;position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.92);align-items:center;justify-content:center;padding:1.5rem;cursor:zoom-out;backdrop-filter:blur(6px)}
 .team-lightbox.open{display:flex}
 .team-lightbox img{max-width:100%;max-height:90vh;border-radius:12px;box-shadow:0 0 60px rgba(0,0,0,.8);cursor:default;animation:lb-in .25s ease}
@@ -259,14 +259,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 2rem;height:64px;
 .staff-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0 2rem}
 .staff-label{font-size:.7rem;color:var(--gray);text-transform:uppercase;letter-spacing:.12em;font-weight:700;text-align:center;margin-bottom:1.25rem}
 .staff-grid{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
-.staff-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.25rem .75rem 1rem;width:160px;text-align:center}
-.staff-avatar-wrap{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#001a4a,#0057B7);display:flex;align-items:center;justify-content:center;margin:0 auto .75rem;border:2px solid rgba(0,87,183,.4);overflow:hidden}
-.staff-avatar-initials{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--white)}
-.staff-avatar-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center}
-#staff-avatar-at{height:110px;border-radius:12px}
-#staff-avatar-at img{object-fit:contain;object-position:center}
-.staff-card-name{font-weight:700;font-size:.88rem;margin-bottom:.3rem;line-height:1.2}
-.staff-card-role{font-size:.7rem;color:var(--blue-light);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
+.staff-card{position:relative;border-radius:16px;width:160px;height:220px;overflow:hidden;border:1px solid var(--border);text-align:center;transition:transform .3s,box-shadow .3s,border-color .3s}
+.staff-card-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.staff-card-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,3,18,.97) 0%,rgba(0,3,18,.6) 45%,rgba(0,0,0,.05) 100%)}
+.staff-card-body{position:absolute;bottom:0;left:0;right:0;padding:.65rem .6rem .8rem;z-index:1}
+.staff-card-name{font-weight:700;font-size:.9rem;margin-bottom:.25rem;line-height:1.2;color:var(--white)}
+.staff-card-role{font-size:.65rem;color:var(--blue-light);text-transform:uppercase;letter-spacing:.08em;font-weight:700}
 
 /* MODAL */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)}
@@ -666,22 +664,22 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="staff-label">Cuerpo T&#233;cnico</div>
     <div class="staff-grid">
       <div class="staff-card" id="staff-card-dt">
-        <div class="staff-avatar-wrap" id="staff-avatar-dt">
-          <img src="assets/fotos/staff/ea.jpg" alt="Ezequiel Arrizabalaga" onerror="this.style.display='none';document.getElementById('staff-initials-dt').style.display=''">
-          <span class="staff-avatar-initials" id="staff-initials-dt" style="display:none">EA</span>
+        <img class="staff-card-bg" src="assets/fotos/staff/ea.jpg" alt="Ezequiel Arrizabalaga">
+        <div class="staff-card-overlay"></div>
+        <div class="staff-card-body">
+          <div class="staff-card-name">Ezequiel<br>Arrizabalaga</div>
+          <div class="staff-card-role">Director T&#233;cnico</div>
+          <div class="staff-fotos-count" id="staff-fotos-dt" style="display:none"></div>
         </div>
-        <div class="staff-card-name">Ezequiel<br>Arrizabalaga</div>
-        <div class="staff-card-role">Director T&#233;cnico</div>
-        <div class="staff-fotos-count" id="staff-fotos-dt" style="display:none"></div>
       </div>
       <div class="staff-card" id="staff-card-at">
-        <div class="staff-avatar-wrap" id="staff-avatar-at">
-          <img src="assets/fotos/staff/at.jpg" alt="Agust&#237;n Rebollo" onerror="this.style.display='none';document.getElementById('staff-initials-at').style.display=''">
-          <span class="staff-avatar-initials" id="staff-initials-at" style="display:none">AR</span>
+        <img class="staff-card-bg" src="assets/fotos/staff/at.jpg" alt="Agust&#237;n Rebollo">
+        <div class="staff-card-overlay"></div>
+        <div class="staff-card-body">
+          <div class="staff-card-name">Agust&#237;n<br>Rebollo</div>
+          <div class="staff-card-role">Asistente T&#233;cnico</div>
+          <div class="staff-fotos-count" id="staff-fotos-at" style="display:none"></div>
         </div>
-        <div class="staff-card-name">Agust&#237;n<br>Rebollo</div>
-        <div class="staff-card-role">Asistente T&#233;cnico</div>
-        <div class="staff-fotos-count" id="staff-fotos-at" style="display:none"></div>
       </div>
     </div>
   </div>
