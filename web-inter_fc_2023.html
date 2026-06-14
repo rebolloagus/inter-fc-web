@@ -1616,7 +1616,7 @@ function renderPitchSVG(layout, scorerMap) {
     }
     return `<g>${g}</g>`;
   }).join('');
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;inset:0;width:100%;height:100%;display:block"><defs>${defs}</defs><rect width="${W}" height="${H}" fill="#2e7d32"/>${stripes}${lines}${cPaths}${chips}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="position:absolute;inset:0;width:100%;height:100%;display:block"><defs>${defs}</defs><rect width="${W}" height="${H}" fill="#2e7d32"/>${stripes}${lines}${cPaths}${chips}</svg>`;
 }
 
 function openLineup(matchId) {
