@@ -1,7 +1,7 @@
 // ADMIN-DATA — gestionado desde el panel /admin.html
 // No editar manualmente si usás el panel de administración
 const ADMIN_DATA = {
-  "lastUpdated": "2026-06-13T19:44:29.333Z",
+  "lastUpdated": "2026-06-14T17:50:00.460Z",
   "lineups": {
     "Fecha 10": {
       "titulares": [
@@ -75,8 +75,8 @@ const ADMIN_DATA = {
     }
   },
   "igStats": {
-    "posts": 84,
-    "seguidores": 235,
+    "posts": 85,
+    "seguidores": 234,
     "siguiendo": 34
   },
   "matchResults": {
@@ -1009,7 +1009,6 @@ const ADMIN_DATA = {
       "assets/fotos/f8/Mauro Cabrera y Lucas Vidal.jpg"
     ]
   },
-
   "playerMinutes": {
     "amistoso": {
       "Jubin": 90,
