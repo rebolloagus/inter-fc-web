@@ -523,7 +523,6 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
       </div>
     </div>
 
-    </div><!-- /hero-left -->
 
     <!-- Hero text -->
     <div class="hero-text fade-in-right">
@@ -564,20 +563,20 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
         <div class="hero-next-date">Cancha por confirmar</div>
       </div>
 
-      <!-- ÚLTIMOS RESULTADOS -->
-      <div class="forma fade-in">
-        <div class="forma-label">Últimos 5 partidos</div>
-        <div class="forma-items">
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Club Montero</span><span class="forma-score">2-1</span></div>
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Capitol F.C.</span><span class="forma-score">4-1</span></div>
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Blue Label FC</span><span class="forma-score">7-2</span></div>
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Revolución Futbolística</span><span class="forma-score">6-2</span></div>
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Malasia F.C.</span><span class="forma-score">2-1</span></div>
-          <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Club Montero</span><span class="forma-score">2-1</span></div>
-        </div>
+    </div>
+
+    <!-- ÚLTIMOS RESULTADOS -->
+        <div class="forma fade-in">
+      <div class="forma-label">Últimos 5 partidos</div>
+      <div class="forma-items">
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Club Montero</span><span class="forma-score">2-1</span></div>
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Capitol F.C.</span><span class="forma-score">4-1</span></div>
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Blue Label FC</span><span class="forma-score">7-2</span></div>
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Revolución Futbolística</span><span class="forma-score">6-2</span></div>
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Malasia F.C.</span><span class="forma-score">2-1</span></div>
+        <div class="forma-item"><div class="forma-badge v">V</div><span class="forma-rival">Club Montero</span><span class="forma-score">2-1</span></div>
       </div>
 
-    </div>
   </div>
 </section>
 
@@ -1657,20 +1656,6 @@ document.getElementById('fotos-viewer-x').addEventListener('click', closeFotoVie
 document.getElementById('fotosViewer').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeFotoViewer(); });
 
 
-// Align PALMARES label dynamically
-function alignPalmares() {
-  var formaLabel = document.querySelector('.forma-label');
-  var palmares = document.querySelector('.palmares');
-  var forma = formaLabel && formaLabel.closest('.forma');
-  if (!formaLabel || !palmares || !forma) return;
-  palmares.style.marginTop = '0';
-  forma.style.marginTop = '0';
-  var diff = formaLabel.getBoundingClientRect().top - palmares.getBoundingClientRect().top;
-  if (diff > 0) palmares.style.marginTop = diff + 'px';
-  else if (diff < 0) forma.style.marginTop = (-diff) + 'px';
-}
-window.addEventListener('load', alignPalmares);
-window.addEventListener('resize', alignPalmares);
 </script>
 
 <!-- FOTOS LIGHTBOX -->
