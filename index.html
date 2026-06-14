@@ -1502,14 +1502,18 @@ function _setSlide(idx) {
   _slideIdx = (idx + _slides.length) % _slides.length;
   const img = document.getElementById('hero-slide-img');
   if (!img || _slides.length === 0) return;
-  img.style.opacity = '0';
-  setTimeout(() => {
-    const show = () => { img.style.opacity = '1'; img.onload = null; img.onerror = null; };
-    img.onload = show;
-    img.onerror = show;
-    img.src = _encPath(_slides[_slideIdx]);
-    if (img.complete) show();
-  }, 300);
+  const newSrc = _encPath(_slides[_slideIdx]);
+  let fired = false;
+  function go() {
+    if (fired) return; fired = true;
+    img.style.opacity = '0';
+    // Wait full fade-out (matches CSS transition:opacity .5s) then swap src instantly from cache
+    setTimeout(() => { img.src = newSrc; img.style.opacity = '1'; }, 500);
+  }
+  const pre = new Image();
+  pre.onload = pre.onerror = go;
+  pre.src = newSrc;
+  if (pre.complete) go();
 }
 
 function _startTimer() {
