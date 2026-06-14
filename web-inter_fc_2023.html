@@ -1655,6 +1655,19 @@ document.getElementById('fotos-prev').addEventListener('click', function() { _fo
 document.getElementById('fotos-next').addEventListener('click', function() { _fotosIdx = (_fotosIdx + 1) % _fotosFiles.length; _updateViewer(); });
 document.getElementById('fotos-viewer-x').addEventListener('click', closeFotoViewer);
 document.getElementById('fotosViewer').addEventListener('click', function(e) { if (e.target === e.currentTarget) closeFotoViewer(); });
+
+
+// Align PALMARES label dynamically
+function alignPalmares() {
+  var formaLabel = document.querySelector('.forma-label');
+  var palmares = document.querySelector('.palmares');
+  if (!formaLabel || !palmares) return;
+  palmares.style.marginTop = '0';
+  var diff = formaLabel.getBoundingClientRect().top - palmares.getBoundingClientRect().top;
+  if (diff > 0) palmares.style.marginTop = diff + 'px';
+}
+window.addEventListener('load', alignPalmares);
+window.addEventListener('resize', alignPalmares);
 </script>
 
 <!-- FOTOS LIGHTBOX -->

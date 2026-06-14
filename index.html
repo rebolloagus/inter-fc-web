@@ -1677,6 +1677,18 @@ document.getElementById('fotos-prev').addEventListener('click', () => { _fotosId
 document.getElementById('fotos-next').addEventListener('click', () => { _fotosIdx = (_fotosIdx + 1) % _fotosFiles.length; _updateViewer(); });
 document.getElementById('fotos-viewer-x').addEventListener('click', closeFotoViewer);
 document.getElementById('fotosViewer').addEventListener('click', e => { if (e.target === e.currentTarget) closeFotoViewer(); });
+
+// Align PALMARÉS label with ÚLTIMOS 5 PARTIDOS label dynamically
+function alignPalmares() {
+  const formaLabel = document.querySelector('.forma-label');
+  const palmares = document.querySelector('.palmares');
+  if (!formaLabel || !palmares) return;
+  palmares.style.marginTop = '0';
+  const diff = formaLabel.getBoundingClientRect().top - palmares.getBoundingClientRect().top;
+  if (diff > 0) palmares.style.marginTop = diff + 'px';
+}
+window.addEventListener('load', alignPalmares);
+window.addEventListener('resize', alignPalmares);
 </script>
 
 <!-- FOTOS LIGHTBOX -->
