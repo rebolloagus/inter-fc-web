@@ -1682,10 +1682,13 @@ document.getElementById('fotosViewer').addEventListener('click', e => { if (e.ta
 function alignPalmares() {
   const formaLabel = document.querySelector('.forma-label');
   const palmares = document.querySelector('.palmares');
-  if (!formaLabel || !palmares) return;
+  const forma = formaLabel && formaLabel.closest('.forma');
+  if (!formaLabel || !palmares || !forma) return;
   palmares.style.marginTop = '0';
+  forma.style.marginTop = '0';
   const diff = formaLabel.getBoundingClientRect().top - palmares.getBoundingClientRect().top;
   if (diff > 0) palmares.style.marginTop = diff + 'px';
+  else if (diff < 0) forma.style.marginTop = (-diff) + 'px';
 }
 window.addEventListener('load', alignPalmares);
 window.addEventListener('resize', alignPalmares);
