@@ -1626,15 +1626,15 @@ document.getElementById('fotosViewer').addEventListener('click', e => { if (e.ta
 <div class="fotos-overlay" id="fotosModal">
   <div class="fotos-header">
     <span class="fotos-header-name" id="fotos-header-name"></span>
-    <button class="fotos-close-btn" id="fotos-close">✕</button>
+    <button class="fotos-close-btn" id="fotos-close" onclick="closeFotos()">✕</button>
   </div>
   <div class="fotos-grid" id="fotos-grid"></div>
 </div>
 <div class="fotos-viewer" id="fotosViewer">
   <img class="fotos-viewer-img" id="fotos-viewer-img" src="" alt="">
-  <button class="fotos-nav fotos-nav-prev" id="fotos-prev">‹</button>
-  <button class="fotos-nav fotos-nav-next" id="fotos-next">›</button>
-  <button class="fotos-viewer-x" id="fotos-viewer-x">✕</button>
+  <button class="fotos-nav fotos-nav-prev" id="fotos-prev" onclick="_fotosIdx=(_fotosIdx-1+_fotosFiles.length)%_fotosFiles.length;_updateViewer()">‹</button>
+  <button class="fotos-nav fotos-nav-next" id="fotos-next" onclick="_fotosIdx=(_fotosIdx+1)%_fotosFiles.length;_updateViewer()">›</button>
+  <button class="fotos-viewer-x" id="fotos-viewer-x" onclick="closeFotoViewer()">✕</button>
 </div>
 </body>
 </html>

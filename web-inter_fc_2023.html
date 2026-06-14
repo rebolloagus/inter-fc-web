@@ -1624,15 +1624,15 @@ document.getElementById('fotosViewer').addEventListener('click', function(e) { i
 <div class="fotos-overlay" id="fotosModal">
   <div class="fotos-header">
     <span class="fotos-header-name" id="fotos-header-name"></span>
-    <button class="fotos-close-btn" id="fotos-close">&#x2715;</button>
+    <button class="fotos-close-btn" id="fotos-close" onclick="closeFotos()">&#x2715;</button>
   </div>
   <div class="fotos-grid" id="fotos-grid"></div>
 </div>
 <div class="fotos-viewer" id="fotosViewer">
   <img class="fotos-viewer-img" id="fotos-viewer-img" src="" alt="">
-  <button class="fotos-nav fotos-nav-prev" id="fotos-prev">&#x2039;</button>
-  <button class="fotos-nav fotos-nav-next" id="fotos-next">&#x203a;</button>
-  <button class="fotos-viewer-x" id="fotos-viewer-x">&#x2715;</button>
+  <button class="fotos-nav fotos-nav-prev" id="fotos-prev" onclick="_fotosIdx=(_fotosIdx-1+_fotosFiles.length)%_fotosFiles.length;_updateViewer()">&#x2039;</button>
+  <button class="fotos-nav fotos-nav-next" id="fotos-next" onclick="_fotosIdx=(_fotosIdx+1)%_fotosFiles.length;_updateViewer()">&#x203a;</button>
+  <button class="fotos-viewer-x" id="fotos-viewer-x" onclick="closeFotoViewer()">&#x2715;</button>
 </div>
 </body>
 </html>
