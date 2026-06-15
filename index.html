@@ -40,6 +40,8 @@
 </script>
 
 <link rel="icon" type="image/png" href="assets/logos/el-inter.png">
+<meta name="theme-color" content="#0057B7">
+<link rel="preload" as="image" href="assets/team-photo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Sacramento&family=Roboto:wght@300;400;500;700&family=Roboto+Condensed:wght@400;700&display=swap" rel="stylesheet">
 <style>
@@ -504,7 +506,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
 <body>
 
 <!-- NAVBAR -->
-<nav id="navbar">
+<nav id="navbar" aria-label="Navegación principal">
   <div class="nav-logo">
     <img src="assets/logos/el-inter.png" alt="El Inter FC" width="36" height="36" style="border-radius:50%;object-fit:contain;position:relative;z-index:2" onerror="this.style.display='none'">
     <span>El Inter FC</span>
@@ -515,12 +517,13 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <li><a href="#plantel">Plantel</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
-  <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" class="nav-cta">@inter_fc_2023</a>
+  <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" rel="noopener noreferrer" class="nav-cta">@inter_fc_2023</a>
   <button class="nav-mobile" id="menuToggle" aria-label="Menú">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
+<main>
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-bg"></div>
@@ -540,7 +543,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
               <svg viewBox="0 0 22 22" fill="none"><path fill="#fff" d="M11 2L13.09 7.26L18.66 7.27L14.23 10.57L15.9 15.9L11 12.9L6.1 15.9L7.77 10.57L3.34 7.27L8.91 7.26L11 2Z"/></svg>
             </div>
           </div>
-          <div class="ig-handle"><a href="https://www.instagram.com/inter_fc_2023/" target="_blank">@inter_fc_2023</a></div>
+          <div class="ig-handle"><a href="https://www.instagram.com/inter_fc_2023/" target="_blank" rel="noopener noreferrer">@inter_fc_2023</a></div>
           <div class="ig-category">La Banda del Interior</div>
         </div>
       </div>
@@ -551,12 +554,12 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
       </div>
       <div class="ig-bio">
         💙🖤 <strong>La Banda del Interior</strong><br>
-        🏆 Compitiendo en <a href="https://www.ligamvd.com" target="_blank" style="color:var(--blue-light)">@ligamvd</a> · Liga MVD 2026
+        🏆 Compitiendo en <a href="https://www.ligamvd.com" target="_blank" rel="noopener noreferrer" style="color:var(--blue-light)">@ligamvd</a> · Liga MVD 2026
       </div>
       <div class="ig-actions">
-        <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" class="ig-btn ig-btn-primary">Ver Instagram</a>
+        <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" rel="noopener noreferrer" class="ig-btn ig-btn-primary">Ver Instagram</a>
         <a href="#contacto" class="ig-btn ig-btn-secondary">Contactar</a>
-        <a href="https://www.ligamvd.com/home/1/1/" target="_blank" class="ig-btn ig-btn-secondary">Liga MVD</a>
+        <a href="https://www.ligamvd.com/home/1/1/" target="_blank" rel="noopener noreferrer" class="ig-btn ig-btn-secondary">Liga MVD</a>
       </div>
       <div class="team-photo-wrap" title="Click para ampliar">
         <img src="assets/team-photo.jpg" alt="El Inter FC — Plantel 2026" loading="eager" fetchpriority="high" width="800" height="534" class="team-photo-img" id="hero-slide-img" onclick="openTeamPhoto()">
@@ -627,10 +630,10 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
       <div class="hero-next">
         <div class="hero-next-label">Próximo partido · Fecha 11 · Liga MVD</div>
         <div class="hero-next-match" style="display:flex;align-items:center;gap:.6rem;flex-wrap:wrap">
-          <img src="assets/logos/la-favela.png" style="width:24px;height:24px;object-fit:contain;border-radius:50%" alt="La Favela FC">
+          <img src="assets/logos/la-favela.png" width="24" height="24" style="width:24px;height:24px;object-fit:contain;border-radius:50%" alt="La Favela FC">
           <span>La Favela FC</span>
           <span style="color:var(--gray);font-size:.85rem">vs</span>
-          <img src="assets/logos/el-inter.png" style="width:24px;height:24px;object-fit:contain;position:relative;z-index:2" alt="El Inter">
+          <img src="assets/logos/el-inter.png" width="24" height="24" style="width:24px;height:24px;object-fit:contain;position:relative;z-index:2" alt="El Inter">
           <span>El Inter</span>
         </div>
         <div class="hero-next-date">Cancha por confirmar</div>
@@ -800,7 +803,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
       <h2>Sumáte al Inter</h2>
       <p>Si querés seguir al club, colaborar, o simplemente estar al tanto de los partidos, encontrás todos los links acá abajo.</p>
       <div class="contact-links">
-        <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" class="contact-link">
+        <a href="https://www.instagram.com/inter_fc_2023/" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon ig">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
           </div>
@@ -809,7 +812,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
             <div class="value">@inter_fc_2023</div>
           </div>
         </a>
-        <a href="https://wa.me/59898266955" target="_blank" class="contact-link">
+        <a href="https://wa.me/59898266955" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon wa">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           </div>
@@ -818,7 +821,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
             <div class="value">098 266 955</div>
           </div>
         </a>
-        <a href="https://www.ligamvd.com/home/1/1/" target="_blank" class="contact-link">
+        <a href="https://www.ligamvd.com/home/1/1/" target="_blank" rel="noopener noreferrer" class="contact-link">
           <div class="contact-link-icon" style="background:var(--blue)">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
           </div>
@@ -855,12 +858,14 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">EL INTER FC</div>
     <div class="footer-copy">© 2026 El Inter FC · Todos los derechos reservados</div>
-    <a href="https://www.ligamvd.com" target="_blank" class="footer-liga">Liga MVD — ligamvd.com</a>
+    <a href="https://www.ligamvd.com" target="_blank" rel="noopener noreferrer" class="footer-liga">Liga MVD — ligamvd.com</a>
   </div>
   <div style="margin-top:.75rem;font-size:.68rem;color:var(--gray);opacity:.6">Diseño y desarrollo · Agustín Rebollo</div>
 </footer>
