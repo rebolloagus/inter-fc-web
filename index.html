@@ -506,7 +506,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
 <!-- NAVBAR -->
 <nav id="navbar">
   <div class="nav-logo">
-    <img src="assets/logos/el-inter.png" alt="El Inter FC" style="border-radius:50%;object-fit:contain;position:relative;z-index:2" onerror="this.style.display='none'">
+    <img src="assets/logos/el-inter.png" alt="El Inter FC" width="36" height="36" style="border-radius:50%;object-fit:contain;position:relative;z-index:2" onerror="this.style.display='none'">
     <span>El Inter FC</span>
   </div>
   <ul class="nav-links">
@@ -530,7 +530,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="ig-card fade-in-left">
       <div class="ig-card-header">
         <div class="ig-avatar">
-          <img src="assets/logos/el-inter.png" alt="El Inter FC" style="position:relative;z-index:2;border-radius:50%;object-fit:contain;display:block;width:72px;height:72px">
+          <img src="assets/logos/el-inter.png" alt="El Inter FC" width="72" height="72" style="position:relative;z-index:2;border-radius:50%;object-fit:contain;display:block;width:72px;height:72px">
           <div class="ig-avatar-ring"></div>
         </div>
         <div class="ig-info">
@@ -559,7 +559,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
         <a href="https://www.ligamvd.com/home/1/1/" target="_blank" class="ig-btn ig-btn-secondary">Liga MVD</a>
       </div>
       <div class="team-photo-wrap" title="Click para ampliar">
-        <img src="assets/team-photo.jpg" alt="El Inter FC — Plantel 2026" loading="lazy" class="team-photo-img" id="hero-slide-img" onclick="openTeamPhoto()">
+        <img src="assets/team-photo.jpg" alt="El Inter FC — Plantel 2026" loading="eager" fetchpriority="high" width="800" height="534" class="team-photo-img" id="hero-slide-img" onclick="openTeamPhoto()">
         <button class="slide-btn slide-prev" onclick="slideManual(-1);event.stopPropagation()" aria-label="Anterior">‹</button>
         <button class="slide-btn slide-next" onclick="slideManual(1);event.stopPropagation()" aria-label="Siguiente">›</button>
         <div class="team-photo-overlay" onclick="openTeamPhoto()">
@@ -673,7 +673,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="section-header">
       <div>
         <div class="section-label">Liga MVD · Serie 1</div>
-        <div class="section-title">Tabla de Posiciones</div>
+        <h2 class="section-title">Tabla de Posiciones</h2>
       </div>
       <div class="section-line"></div>
       <div class="section-count">B</div>
@@ -703,7 +703,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="section-header">
       <div>
         <div class="section-label">Temporada 2026</div>
-        <div class="section-title">Resultados</div>
+        <h2 class="section-title">Resultados</h2>
       </div>
       <div class="section-line"></div>
     </div>
@@ -747,7 +747,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="section-header">
       <div>
         <div class="section-label">Temporada 2026</div>
-        <div class="section-title">Goleadores</div>
+        <h2 class="section-title">Goleadores</h2>
       </div>
       <div class="section-line"></div>
     </div>
@@ -761,7 +761,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:2rem;text
     <div class="section-header">
       <div>
         <div class="section-label">Temporada 2026</div>
-        <div class="section-title">El Plantel</div>
+        <h2 class="section-title">El Plantel</h2>
       </div>
       <div class="section-line"></div>
     </div>
