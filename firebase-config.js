@@ -1,22 +1,12 @@
-// ================================================================
-// CONFIGURACIÓN ANALYTICS — El Inter FC
-// ================================================================
-// 1. Creá un proyecto en https://console.firebase.google.com
-//    → Realtime Database → Crear base de datos → Modo prueba
-//    → Configuración del proyecto → Agregar app web → Copiá los valores
-//
-// 2. Creá una propiedad en https://analytics.google.com
-//    → Nuevo → Web → copiá el ID que empieza con G-
-// ================================================================
-
+// Configuración Firebase — El Inter FC Analytics
 window.FIREBASE_CONFIG = {
-  apiKey:            "REEMPLAZAR_apiKey",
-  authDomain:        "REEMPLAZAR_project.firebaseapp.com",
-  databaseURL:       "https://REEMPLAZAR_project-default-rtdb.firebaseio.com",
-  projectId:         "REEMPLAZAR_project",
-  storageBucket:     "REEMPLAZAR_project.appspot.com",
-  messagingSenderId: "REEMPLAZAR_senderId",
-  appId:             "REEMPLAZAR_appId"
+  apiKey:            "AIzaSyCj7M9L8w7WXxzCp_nTkPrK8bCOiYiSqdU",
+  authDomain:        "el-inter-fc.firebaseapp.com",
+  databaseURL:       "https://el-inter-fc-default-rtdb.firebaseio.com",
+  projectId:         "el-inter-fc",
+  storageBucket:     "el-inter-fc.firebasestorage.app",
+  messagingSenderId: "266844273591",
+  appId:             "1:266844273591:web:d55e02c5a27f907a60c632"
 };
 
-window.GA4_ID = "G-XXXXXXXXXX";
+window.GA4_ID = "G-WWVR2Y411J";
